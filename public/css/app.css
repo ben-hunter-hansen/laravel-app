@@ -1,0 +1,37 @@
+.photo-center {
+  margin: 0 auto;
+}
+
+.photo-center.tiny {
+  max-width: 65px;
+  max-height: 65px;
+}
+.photo-center.med {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.photo-center.big  {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.small-font {
+  font-size: 0.9em;
+}
+
+.file-dropper {
+  height: 200px;
+  border-width: 2px;
+  border-radius: 2%;
+  border-style: dashed;
+  color: #aaa;
+  border-color: #aaa;
+  text-align: center;
+  padding: 15%;
+}
+
+.file-dropper.drop {
+  border-color: #222;
+}
+

@@ -1,0 +1,4 @@
+/database
+/vendor
+/node_modules
+.env

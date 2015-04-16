@@ -11,11 +11,18 @@
 |
 */
 
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('user/{id}', 'UserController@showProfile');
+Route::get('user/profile/{id}', 'UserController@showProfile');
+
+Route::get('user/profile/photos/get', 'UserController@getPhotos');
+
+Route::post('user/profile/photos/upload', 'UserController@addPhotos');
+
+Route::post('user/profile/about','UserController@submitAbout');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

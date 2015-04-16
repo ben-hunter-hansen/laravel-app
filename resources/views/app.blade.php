@@ -4,6 +4,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	@if (!Auth::guest())
+		<meta name="csrf_token" content="{{{ csrf_token() }}}">
+		<meta name="user_id" content="{{ Auth::user()->id }}">
+	@endif
+
 	<title>Laravel</title>
 
 	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
@@ -44,7 +50,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/user/{{ Auth::user()->id }}">Profile</li>
+								<li><a href="/user/profile/{{ Auth::user()->id }}">Profile</li>
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 							</ul>
 						</li>
@@ -60,5 +66,6 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/js/app.js') }}"></script>
+	<script src="{{ asset('/js/utils.js') }}"></script>
 </body>
 </html>

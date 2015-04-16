@@ -21,17 +21,74 @@
 }
 
 .file-dropper {
-  height: 200px;
+  height: 100px;
   border-width: 2px;
   border-radius: 2%;
   border-style: dashed;
   color: #aaa;
   border-color: #aaa;
   text-align: center;
-  padding: 15%;
+  padding-top: 40px;
 }
 
 .file-dropper.drop {
-  border-color: #222;
+  border-color: #555;
+  border-style: solid;
 }
 
+.img-preview-list {
+  margin: 0 auto;
+}
+
+.img-preview-list > img {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto;
+}
+
+.img-preview-list > img:hover {
+  background-color: #ccc;
+}
+
+.img-preview-list > img.selected {
+  background-color: #aaa;
+}
+.user-photos {
+
+}
+.user-photos > a > img {
+  width: 80px;
+  height: 80px;
+  margin:10px;
+}
+
+.carousel-inner > .item > img {
+  width: 100%;
+}
+
+#view-photo-carousel {
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+
+  .carousel-inner > .item > img {
+    width: 100%;
+    height: 500px;
+  }
+
+  #view-photo-carousel {
+    width: 85%;
+    height: 100%;
+    
+  }
+
+  #viewPhotoMod .modal-dialog  {
+    width: 850px;
+  }
+
+}
+
+.dark-background {
+  background-color: #555555;
+}

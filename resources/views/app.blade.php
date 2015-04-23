@@ -62,6 +62,30 @@
 	<div class="container-fluid">
 		@yield('content')
 	</div>
+	<div class="container-fluid footer-container">
+		<footer class="footer">
+		    <div class="container">
+		    <img src="{{Auth::user()->photo }}" class="img-responsive photo-center tiny" style="border-radius: 50%;">
+		    	<p class="text-muted">
+		    		Copyright &#9400; 2015 by Benjamin Hansen <br>
+		    		<span class="cr-notice">
+						All rights reserved. No part of this publication may be reproduced, 
+						distributed, or transmitted in any form or by any means, including photocopying, 
+						recording, or other electronic or mechanical methods, without the prior written permission of the publisher, 
+						except in the case of brief quotations embodied in critical reviews and certain
+						other noncommercial uses permitted by copyright law. For permission requests,
+						write to the publisher, addressed “Attention: Permissions Coordinator,” at the address below.
+						<address>
+							Imaginary Press
+							1233 Pennsylvania Avenue
+							San Francisco, CA 94909<br>
+							<a href="mailto:ben@bensdevblog.com">ben@bensdevblog.com</a></span>
+						</address>
+					</span>
+		    	</p>
+		    </div>
+	    </footer>
+	</div>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>

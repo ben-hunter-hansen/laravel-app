@@ -105,152 +105,212 @@
 <div class="row">
 	<div class="col-xs-12 text-center">
 		<img src="{{Auth::user()->photo }}" class="img-responsive photo-center med" style="border-radius: 50%;">
-		<h2>{{ Auth::user()->name }}</h2>
-		<h4>{{ Auth::user()->email }}<h4>
+		<h1>{{ Auth::user()->name }}</h1>
+		<h3>{{ Auth::user()->email }}<h3>
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-8">
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-1">
-				<h3>About <small><a href="#" data-toggle="modal" data-target="#editAboutMod">edit</a></small></h3>
-				<p id="aboutText">{{ Auth::user()->about }}</p>
+	<div class="col-xs-12">
+		<section id="aboutUser" class="row fw">
+			<h2 class="section-header">About <small><a href="#" data-toggle="modal" data-target="#editAboutMod">edit</a></small></h2>
+			<p id="aboutText">{{ Auth::user()->about }}</p>
+		</section>
+		<section id="recentPosts" class="row fw">
+			<h2 class="section-header">Recent Posts</h2>
+			<table class="table table-hover">
+		  		<thead>
+		  			<tr>
+		  				<th>Title</th>
+		  				<th>Date</th>
+		  				<th>Edit</th>
+		  			</tr>
+		  		</thead>
+		  		<tbody>
+		  			<tr class="small-font">
+			  			<td>
+			  				<a href="#">Wow Such Post</a>
+			  			</td>
+			  			<td>3/30/15</td>
+			  			<td>
+			  				<a href="#">
+							  <span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="text-danger" href="#">
+							  <span class="glyphicon glyphicon-remove"></span>
+							</a>
+			  			</td>
+		  			</tr>
+		  			<tr class="small-font">
+			  			<td>
+			  				<a href="#">Very blog, wow</a>
+			  			</td>
+			  			<td>3/31/15</td>
+			  			<td>
+			  				<a href="#">
+							  <span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<a class="text-danger" href="#">
+							  <span class="glyphicon glyphicon-remove"></span>
+							</a>
+			  			</td>
+		  			</tr>
+		  		</tbody>
+			</table>
+		</section>
+		<section id="userFriends" class="row fw">
+			<h2 class="section-header">Friends <small><a href="#">edit</a></small></h2>
+			<ul class="list-inline">
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+				<li class="media friend">
+					<div class="media-left">
+						<a href="#">
+					      <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
+					    </a>
+					    <div class="btn-toolbar" role="toolbar" aria-label="...">
+							<div class="btn-group user-buttons" role="group" aria-label="...">
+							  	<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+								  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+				    </div>
+				    <div class="media-body" style="max-width:150px">
+				    	<p class="media-heading">Benjamin Hansen</p>
+				    	<span class="text-muted"><small>yolo swaaag</small></span>
+			  		</div>
+				</li>
+			</ul>
+		</section>
+		<section class="row fw" id="photoContent">
+			<h2 class="section-header">Photos <small><a href="#" data-toggle="modal" data-target="#addPhotoMod">add</a></small></h2>
+			<div class="user-photos">
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-1">
-				<h3>Recent Posts</h3>
-				<table class="table table-hover">
-			  		<thead>
-			  			<tr>
-			  				<th>Title</th>
-			  				<th>Date</th>
-			  				<th>Edit</th>
-			  			</tr>
-			  		</thead>
-			  		<tbody>
-			  			<tr class="small-font">
-				  			<td>
-				  				<a href="#">Wow Such Post</a>
-				  			</td>
-				  			<td>3/30/15</td>
-				  			<td>
-				  				<a href="#">
-								  <span class="glyphicon glyphicon-pencil"></span>
-								</a>
-								<a class="text-danger" href="#">
-								  <span class="glyphicon glyphicon-remove"></span>
-								</a>
-				  			</td>
-			  			</tr>
-			  			<tr class="small-font">
-				  			<td>
-				  				<a href="#">Very blog, wow</a>
-				  			</td>
-				  			<td>3/31/15</td>
-				  			<td>
-				  				<a href="#">
-								  <span class="glyphicon glyphicon-pencil"></span>
-								</a>
-								<a class="text-danger" href="#">
-								  <span class="glyphicon glyphicon-remove"></span>
-								</a>
-				  			</td>
-			  			</tr>
-			  		</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row" id="photoContent">
-			<div class="col-xs-10 col-xs-offset-1">
-				<h3>Photos <small><a href="#" data-toggle="modal" data-target="#addPhotoMod">add</a></small></h3>
-				<div class="row">
-					<div class="user-photos">
-					</div>
-				</div>
-				<nav>
-				  	<ul class="pager">
-				    	<li><a id="photosPrev" href="#">Previous</a></li>
-					    <li><a id="photosNext" href="#">Next</a></li>
-			  		</ul>
-				</nav>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-1">
-				<h3>Friends</h3>
-				<ul class="media-list">
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Tony Danza</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Semour Butts</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Darth Vader</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Tony Danza</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Semour Butts</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				  <li class="media">
-				    <div class="media-left">
-				      <a href="#">
-				        <img class="media-object photo-center tiny" src="{{Auth::user()->photo}}" alt="...">
-				      </a>
-				    </div>
-				    <div class="media-body">
-				      <h5 class="media-heading">Darth Vader</h5>
-				      	<small><a href="#">contact@contact.com</a></small>
-				    </div>
-				  </li>
-				</ul>
-			</div>
-		</div>
+		</section>
 	</div>
 </div>
 

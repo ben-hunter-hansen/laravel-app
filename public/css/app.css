@@ -1,10 +1,19 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
+
+html, body {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.row.fw {
+  margin: 0 auto;
+}
 .photo-center {
   margin: 0 auto;
 }
 
 .photo-center.tiny {
-  max-width: 65px;
-  max-height: 65px;
+  max-width: 75px;
+  max-height: 75px;
 }
 .photo-center.med {
   max-width: 250px;
@@ -53,9 +62,7 @@
 .img-preview-list > img.selected {
   background-color: #aaa;
 }
-.user-photos {
 
-}
 .user-photos > a > img {
   width: 80px;
   height: 80px;
@@ -87,8 +94,38 @@
     width: 850px;
   }
 
+
 }
 
 .dark-background {
   background-color: #555555;
+}
+
+.user-buttons > .btn-default {
+  border-color: transparent;
+}
+
+
+section {
+  padding-left: 10%;
+  padding-right: 10%;
+  font-size: large;
+}
+
+
+.footer-container {
+  margin-top: 30px;
+  padding: 0px;
+
+}
+
+.cr-notice {
+  font-size: 0.8em;
+}
+footer {
+  text-align: center;
+  font-size: medium;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #eeeeee;
 }

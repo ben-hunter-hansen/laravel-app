@@ -313,5 +313,10 @@
 		</section>
 	</div>
 </div>
-
+<script>
+	window.onload = function(){
+		var profile = new ProfileView();
+		profile.Init();
+	}
+</script>
 @endsection

@@ -3,7 +3,9 @@
 html, body {
   font-family: 'Titillium Web', sans-serif;
 }
-
+.bg-gray {
+  background-color: gray;
+}
 .row.fw {
   margin: 0 auto;
 }
@@ -77,25 +79,7 @@ html, body {
   margin: 0 auto;
 }
 
-@media screen and (min-width: 768px) {
 
-  .carousel-inner > .item > img {
-    width: 100%;
-    height: 500px;
-  }
-
-  #view-photo-carousel {
-    width: 85%;
-    height: 100%;
-    
-  }
-
-  #viewPhotoMod .modal-dialog  {
-    width: 850px;
-  }
-
-
-}
 
 .dark-background {
   background-color: #555555;
@@ -105,6 +89,9 @@ html, body {
   border-color: transparent;
 }
 
+nav.navbar {
+  margin-bottom: 0px;
+}
 
 section {
   padding-left: 10%;
@@ -128,4 +115,100 @@ footer {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #eeeeee;
+}
+
+.jumbotron.home {
+  border-radius: 0;
+  background-color: none;
+  margin-bottom: 0;
+  background: url('../img/clouds.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.landing-nav-link {
+  border: 1px solid;
+  color: inherit;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;;
+  font-size: small;
+}
+
+.landing-nav-link:hover,
+.landing-nav-link:focus,
+.landing-nav-link:active {
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid;
+    outline: none;
+}
+
+.graph-responsive {
+    max-width: 600px; 
+    max-height: 600px;
+    margin: 0 auto;
+}
+
+section#siteFeatures {
+  background-color: #eeeeee;
+}
+
+@-webkit-keyframes flash {
+    0% {
+        background-color: white;
+        opacity:1;
+    }
+    22% {
+        background-color: #83CFF9;
+        color: white;
+    }
+    77% {
+        background-color: rgb(255,255,255,0.3);
+    }
+    100% {
+        background-color: none;
+    }
+}
+    
+.flash {
+    -webkit-animation-name: flash;
+    -webkit-animation-duration: 900ms;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+
+  .carousel-inner > .item > img {
+    width: 100%;
+    height: 500px;
+  }
+
+  #view-photo-carousel {
+    width: 85%;
+    height: 100%;
+    
+  }
+
+  #viewPhotoMod .modal-dialog  {
+    width: 850px;
+  }
+  
+  .landing-nav-link {
+    width: 150px;
+    color: inherit;
+    height: 150px;
+    font-size: large;
+    margin-top: 30px;
+  }
+  .landing-nav-link:hover,
+  .landing-nav-link:active,
+  .landing-nav-link:visited {
+    color: inherit;
+    text-decoration: none;
+    border: 2px solid;
+  }
 }

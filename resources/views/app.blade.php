@@ -59,13 +59,17 @@
 			</div>
 		</div>
 	</nav>
+	<!-- Scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('/js/app.min.js') }}"></script>
 	<div class="container-fluid">
 		@yield('content')
 	</div>
 	<div class="container-fluid footer-container">
 		<footer class="footer">
 		    <div class="container">
-		    <img src="{{Auth::user()->photo }}" class="img-responsive photo-center tiny" style="border-radius: 50%;">
+		    <img src="" class="img-responsive photo-center tiny" style="border-radius: 50%;">
 		    	<p class="text-muted">
 		    		Copyright &#9400; 2015 by Benjamin Hansen <br>
 		    		<span class="cr-notice">
@@ -86,10 +90,5 @@
 		    </div>
 	    </footer>
 	</div>
-	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('/js/app.js') }}"></script>
-	<script src="{{ asset('/js/utils.js') }}"></script>
 </body>
 </html>

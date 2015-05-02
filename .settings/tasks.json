@@ -1,0 +1,15 @@
+
+// Grunt task configuration
+{
+	"version": "0.1.0",
+	"command": "grunt",
+	"isShellCommand": true,
+	"tasks": [
+		{
+			"taskName": "watch",
+			"isBuildCommand": true,
+			"showOutput": "silent",
+			"isWatching": true
+		}
+	]
+}

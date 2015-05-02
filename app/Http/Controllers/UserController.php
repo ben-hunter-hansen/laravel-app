@@ -52,7 +52,7 @@ class UserController extends Controller {
 		$user->save();
 		echo $user->about;
 	}
-
+	
 	public function addPhotos(Request $request) {
 		$photos = $request->input('photos');
 		$id = $request->input('id');

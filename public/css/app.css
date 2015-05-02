@@ -1,6 +1,71 @@
-@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
+@-webkit-keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  22% {
+    background-color: #83CFF9;
+    color: white;
+  }
+  77% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: none;
+  }
+}
+@-moz-keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  22% {
+    background-color: #83CFF9;
+    color: white;
+  }
+  77% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: none;
+  }
+}
+@keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  22% {
+    background-color: #83CFF9;
+    color: white;
+  }
+  77% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: none;
+  }
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
-html, body {
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
+html,
+body {
   font-family: 'Titillium Web', sans-serif;
 }
 .bg-gray {
@@ -12,25 +77,34 @@ html, body {
 .photo-center {
   margin: 0 auto;
 }
-
-.photo-center.tiny {
+.photo-center .tiny {
   max-width: 75px;
   max-height: 75px;
 }
-.photo-center.med {
+.photo-center .med {
   max-width: 250px;
   max-height: 250px;
 }
-
-.photo-center.big  {
+.photo-center .big {
   max-width: 300px;
   max-height: 300px;
 }
-
 .small-font {
   font-size: 0.9em;
 }
-
+.feature-circle {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+}
+.content-desc {
+  margin: 5%;
+}
+.feature-circle > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
 .file-dropper {
   height: 100px;
   border-width: 2px;
@@ -41,71 +115,61 @@ html, body {
   text-align: center;
   padding-top: 40px;
 }
-
-.file-dropper.drop {
+.file-dropper .drop {
   border-color: #555;
   border-style: solid;
 }
-
 .img-preview-list {
   margin: 0 auto;
 }
-
 .img-preview-list > img {
   width: 75px;
   height: 75px;
   margin: 0 auto;
 }
-
 .img-preview-list > img:hover {
   background-color: #ccc;
 }
-
 .img-preview-list > img.selected {
   background-color: #aaa;
 }
-
 .user-photos > a > img {
   width: 80px;
   height: 80px;
-  margin:10px;
+  margin: 10px;
 }
-
 .carousel-inner > .item > img {
   width: 100%;
 }
-
 #view-photo-carousel {
   margin: 0 auto;
 }
-
-
-
 .dark-background {
   background-color: #555555;
 }
-
 .user-buttons > .btn-default {
   border-color: transparent;
 }
-
 nav.navbar {
   margin-bottom: 0px;
 }
-
 section {
   padding-left: 10%;
   padding-right: 10%;
   font-size: large;
+  padding-bottom: 2.5%;
+  margin-bottom: 2.5%;
 }
-
-
+.snap-bottom {
+  margin-bottom: 0px;
+}
+.snap-top {
+  margin-top: 0px;
+}
 .footer-container {
-  margin-top: 30px;
+  margin-top: 0px;
   padding: 0px;
-
 }
-
 .cr-notice {
   font-size: 0.8em;
 }
@@ -116,7 +180,6 @@ footer {
   padding-bottom: 10px;
   background-color: #eeeeee;
 }
-
 .jumbotron.home {
   border-radius: 0;
   background-color: none;
@@ -127,76 +190,72 @@ footer {
   -o-background-size: cover;
   background-size: cover;
 }
-
+.section-header {
+  font-size: 2em;
+  margin: 2%;
+}
 .landing-nav-link {
   border: 1px solid;
   color: inherit;
   width: 100px;
   height: 100px;
-  border-radius: 50%;;
+  border-radius: 50%;
   font-size: small;
 }
-
 .landing-nav-link:hover,
 .landing-nav-link:focus,
 .landing-nav-link:active {
-    color: inherit;
-    text-decoration: none;
-    border: 1px solid;
-    outline: none;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid;
+  outline: none;
 }
-
-.graph-responsive {
-    max-width: 600px; 
-    max-height: 600px;
-    margin: 0 auto;
+.chart-responsive {
+  max-height: 800px;
+  max-width: 800px;
+  margin: 0 auto;
 }
-
-section#siteFeatures {
+canvas {
+  width: 100% !important;
+  max-width: 800px;
+  height: auto !important;
+}
+section#siteData {
   background-color: #eeeeee;
 }
-
-@-webkit-keyframes flash {
-    0% {
-        background-color: white;
-        opacity:1;
-    }
-    22% {
-        background-color: #83CFF9;
-        color: white;
-    }
-    77% {
-        background-color: rgb(255,255,255,0.3);
-    }
-    100% {
-        background-color: none;
-    }
+section#siteExplore {
+  background: url('../img/clouds.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-    
 .flash {
-    -webkit-animation-name: flash;
-    -webkit-animation-duration: 900ms;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation: flash 300ms linear 1;
+  -moz-animation: flash 300ms linear 1;
+  animation: flash 300ms linear 1;
 }
-
+.spin {
+  -webkit-animation: spin 300ms linear 1;
+  -moz-animation: spin 300ms linear 1;
+  animation: spin 300ms linear 1;
+}
 @media screen and (min-width: 768px) {
-
   .carousel-inner > .item > img {
     width: 100%;
     height: 500px;
   }
-
   #view-photo-carousel {
     width: 85%;
     height: 100%;
-    
   }
-
-  #viewPhotoMod .modal-dialog  {
+  .section-header {
+    font-size: 3em;
+    margin: 5%;
+  }
+  #viewPhotoMod .modal-dialog {
     width: 850px;
   }
-  
   .landing-nav-link {
     width: 150px;
     color: inherit;

@@ -14,6 +14,14 @@ var ProfileComponents = function() {
 
 var LandingComponents = function() {
 	return {
-		Navigation: $(".landing-nav-link")
-	}
-}
+		Navigation: $(".landing-nav-link"),
+		ChartCarousel: $("#chartCarousel").carousel({interval: 3000,pause: "hover"}),
+		Charts: {
+			Line: $("#lineChartCanvas"),
+			Bar: $("#barChartCanvas"),
+			Polar:$("#polarChartCanvas"),
+			Radar: $("#radarChartCanvas"),
+		},
+		FeaturedContent: $(".featured-content")
+	};
+};

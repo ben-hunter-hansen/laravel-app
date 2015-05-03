@@ -22,6 +22,7 @@ var LandingComponents = function() {
 			Polar:$("#polarChartCanvas"),
 			Radar: $("#radarChartCanvas"),
 		},
-		FeaturedContent: $(".featured-content")
+		FeaturedContent: $(".featured-content"),
+		Sections: $("section")
 	};
 };

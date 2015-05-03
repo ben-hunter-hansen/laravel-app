@@ -161,4 +161,16 @@ var FormDecorator = {
 			$(helper).text("");
 		}
 	}
-}
+};
+
+// Checks to see if an element is within the current viewport.
+$.fn.inView = function(){
+	var rect = this[0].getBoundingClientRect();
+	return !(rect.bottom < 0 || rect.right < 0 || rect.left > window.innerWidth || rect.top > window.innerHeight);
+};
+
+$.fn.sleep = function(time) {
+	return $.Deferred(function(dfd){
+		setTimeout(dfd.resolve,time);
+	});
+};

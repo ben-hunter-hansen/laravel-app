@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
 @-webkit-keyframes flash {
   0% {
     background-color: white;
@@ -62,8 +63,6 @@
     transform: rotate(360deg);
   }
 }
-
-@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600);
 html,
 body {
   font-family: 'Titillium Web', sans-serif;
@@ -236,9 +235,9 @@ section#siteExplore {
   animation: flash 300ms linear 1;
 }
 .spin {
-  -webkit-animation: spin 300ms linear 1;
-  -moz-animation: spin 300ms linear 1;
-  animation: spin 300ms linear 1;
+  -webkit-animation: spin 500ms linear 1;
+  -moz-animation: spin 500ms linear 1;
+  animation: spin 500ms linear 1;
 }
 @media screen and (min-width: 768px) {
   .carousel-inner > .item > img {

@@ -15,16 +15,21 @@ module.exports = function(grunt) {
           paths: "public/css"
         },
         files: {
-          "public/css/app.css":"resources/assets/less/*.less"
+          "public/css/app.css":"resources/assets/less/app.less"
         },
         build: {
-          src: 'resources/assets/less/*.less'
+          src: 'resources/assets/less/app.less'
         }
       }
     },
     watch: {
       files: ['<%= uglify.build.src %>','<%= less.development.build.src %>'],
       tasks: ['uglify','less']
+    },
+    exec: {
+      server: {
+        cmd: 'php artisan serve'
+      }
     }
   });
 
@@ -32,7 +37,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-exec');
   // Default task(s).
   grunt.registerTask('default', ['uglify']);
-
+  grunt.registerTask('serve', ['exec:server']);
 };

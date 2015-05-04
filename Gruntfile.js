@@ -23,12 +23,28 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['<%= uglify.build.src %>','<%= less.development.build.src %>'],
-      tasks: ['uglify','less']
+      files: [
+        '<%= uglify.build.src %>',
+        '<%= less.development.build.src %>',
+        '<%= ts.dev.src %>'
+       ],
+      tasks: ['uglify','less','ts:dev']
     },
     exec: {
       server: {
         cmd: 'php artisan serve'
+      }
+    },
+    ts: {
+      dev: {
+        src: ["resources/assets/typescript/**/*.ts"],
+        reference: 'resources/assets/typescript/reference.ts',
+        outDir: 'public/js/dev',
+        options: {
+          compile: true,
+          module: 'amd',
+          fast: 'never'
+        }
       }
     }
   });
@@ -37,8 +53,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-ts');
   grunt.loadNpmTasks('grunt-exec');
   // Default task(s).
   grunt.registerTask('default', ['uglify']);
   grunt.registerTask('serve', ['exec:server']);
+  grunt.registerTask('build',['ts:dev','uglify','less']);
 };

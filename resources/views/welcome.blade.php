@@ -159,6 +159,8 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/js/app.min.js') }}"></script>
+	<script src="{{ asset('/js/require.js') }}"></script>
+	<script src="{{ asset('/js/dev/config.js') }}"></script>
 	<script>
 		window.onload = function(){
 			var landing = new LandingView();

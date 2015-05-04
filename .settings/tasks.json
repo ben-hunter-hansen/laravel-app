@@ -6,13 +6,15 @@
 	"isShellCommand": true,
 	"tasks": [
 		{
-			"taskName": "watch",
-			"isBuildCommand": true,
-			"showOutput": "silent",
-			"isWatching": true
+			"taskName": "build",
+			"isBuildCommand": true
 		},
         {
             "taskName": "serve"
-        }
+        },
+		{
+			"taskName": "watch",
+			"isWatching": true
+		}
 	]
 }

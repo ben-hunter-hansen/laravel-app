@@ -16,17 +16,17 @@
 						from other users.
 					</p>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 col-sm-4">
 					<button class="btn btn-link landing-nav-link">
 						Sign in
 					</button>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 col-sm-4">
 					<button class="btn btn-link landing-nav-link">
 						Browse
 					</button>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 col-sm-4">
 					<button class="btn btn-link landing-nav-link">
 						Sign up
 					</button>
@@ -126,7 +126,7 @@
 	<section id="siteExplore" class="container-fluid text-center snap-bottom">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1 class="section-header">Start Exploring</h1>
+				<h1>Start Exploring</h1>
 			</div>
 		</div>
 	</section>
@@ -156,15 +156,16 @@
 	</div>
 
 	<script src="{{ asset('/js/chartjs/Chart.min.js') }}"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('/js/app.min.js') }}"></script>
+	<script src="{{ asset('/js/dev/lib/jquery.min.js') }}"></script>
+	<script src="{{ asset('/js/dev/lib/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/js/require.js') }}"></script>
 	<script src="{{ asset('/js/dev/config.js') }}"></script>
 	<script>
-		window.onload = function(){
-			var landing = new LandingView();
-			landing.Init();
+		window.onload = function() {
+			require(['WelcomeView','bootstrap'],function(WelcomeView){
+				var welcomeView = new WelcomeView();
+				welcomeView.registerEvents();
+			});
 		}
 	</script>
 	</body>

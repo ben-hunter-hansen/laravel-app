@@ -1,8 +1,21 @@
 require.config({
-	baseUrl: 'js/dev'
+	baseUrl: 'js/dev',
+	paths: {
+		"jquery": "lib/jquery.min",
+		"chart": "lib/chartjs/Chart",
+		"bootstrap": "lib/bootstrap.min",
+		"ViewBase": "view/ViewBase",
+		"WelcomeView": "view/WelcomeView"
+	},
+	shim: {
+		jquery: {
+			exports: '$'
+		},
+		chart: {
+			exports: 'Chart'
+		},
+		bootstrap: {
+			deps: ["jquery"]
+		}
+	}
 });
-
-require(['main'], (main) => {
-	var appMain = new main.Main();
-	appMain.run();
-})

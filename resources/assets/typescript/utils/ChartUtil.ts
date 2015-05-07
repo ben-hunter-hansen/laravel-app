@@ -1,4 +1,9 @@
-var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+import Chart = require('chart');
+
+function randomScalingFactor() {
+	return Math.round(Math.random()*100);
+}
+
 var lineChartData = {
 	labels : ["January","February","March","April"],
 	datasets : [
@@ -105,48 +110,125 @@ var radarChartData = {
 	]
 };
 
+function getCanvas(el: HTMLElement) {
+	return <HTMLCanvasElement> el;
+}
 
-var ChartFactory = function() {
-	return {
-		LineChart: function(canvas){
-			var lineCtx = canvas.getContext("2d");
-			window.lineChart = new Chart(lineCtx).Line(lineChartData, {
-				responsive : false,
-			   	animation: true,
-			   	barValueSpacing : 5,
-			   	barDatasetSpacing : 1,
-			   	showTooltips: false,
-			   	tooltipFillColor: "rgba(0,0,0,0.8)",                
-			   	multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
-			});
-		},
-		BarChart: function(canvas){
-			var barCtx = canvas.getContext("2d");
-			window.barChart = new Chart(barCtx).Bar(barChartData, {
-				responsive : false,
-				showTooltips: false
-			});
-		},
-		PolarChart: function(canvas){
-			var polarCtx = canvas.getContext("2d");
-			window.polarChart = new Chart(polarCtx).PolarArea(polarData, {
-				responsive:false,
-				showTooltips: false
-			});
-		},
-		RadarChart: function(canvas){
-			window.radarChart = new Chart(canvas.getContext("2d")).Radar(radarChartData, {
-				responsive: false,
-				showTooltips: false
-			});
-		}
+interface IDrawable {
+	labels?: Array<string>;
+	canvas?: HTMLCanvasElement;
+	draw: () => void;
+}
+
+interface ChartInstance {
+	clear: () => void;
+    stop: () => void;
+    resize: () => void;
+    destroy: () => void;
+    toBase64Image: () => string;
+    generateLegend: () => string;
+}
+
+export class ChartBase implements IDrawable {
+	protected data: any;
+	protected chartInstance: ChartInstance;
+	public canvas: HTMLCanvasElement;
+	
+	constructor(data: any) {
+		this.data = data;
+	}
+	
+	public getInstance() {
+		return this.chartInstance;
+	}
+	public draw() {
+		
 	}
 }
 
-var ChartType = {
-	Line: 1,
-	Bar: 2,
-	Polar: 3,
-	Radar: 4
+export class LineChart extends ChartBase {
+	labels: Array<string>;
+	canvas: HTMLCanvasElement;
+	constructor(el: HTMLElement) {
+		super(lineChartData.datasets);
+		this.canvas = getCanvas(el);
+		this.labels = lineChartData.labels;
+	}
+	
+	public draw() {
+		var chartData = {
+			labels: this.labels,
+			datasets: this.data
+			
+		}
+		var ctx = this.canvas.getContext("2d");
+		this.chartInstance = new Chart(ctx).Line(chartData, {
+			responsive : false,
+		   	animation: true,
+		   	barValueSpacing : 5,
+		   	barDatasetSpacing : 1,
+		   	showTooltips: false,
+		   	tooltipFillColor: "rgba(0,0,0,0.8)",                
+		   	multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
+		});
+	}
 }
 
+export class BarChart extends ChartBase {
+	labels: Array<string>;
+	canvas: HTMLCanvasElement;
+	constructor(el: HTMLElement) {
+		super(barChartData.datasets);
+		this.labels = barChartData.labels;
+		this.canvas = getCanvas(el);
+	}
+	public draw() {
+		var chartData = {
+			labels: this.labels,
+			datasets: this.data
+			
+		}
+		var ctx = this.canvas.getContext("2d");
+		this.chartInstance = new Chart(ctx).Bar(chartData,{
+			responsive: false,
+			showTooltips: false
+		});
+	}
+}
+
+export class PolarChart extends ChartBase {
+	canvas: HTMLCanvasElement;
+	constructor(el: HTMLElement) {
+		super(polarData);
+		this.canvas = getCanvas(el);
+	}
+	public draw() {
+		var chartData = this.data;
+		var ctx = this.canvas.getContext("2d");
+		this.chartInstance = new Chart(ctx).PolarArea(chartData, {
+			responsive: false,
+			showTooltips: false
+		});
+	}
+}
+
+export class RadarChart extends ChartBase {
+	labels: Array<string>;
+	canvas: HTMLCanvasElement;
+	constructor(el: HTMLElement) {
+		super(radarChartData.datasets);
+		this.labels = radarChartData.labels;
+		this.canvas = getCanvas(el);
+	}
+	public draw() {
+		var chartData = {
+			labels: this.labels,
+			datasets: this.data
+		}
+		var ctx = this.canvas.getContext("2d");
+		this.chartInstance = new Chart(ctx).Radar(radarChartData, {
+			responsive: false,
+			showTooltips: false
+		});
+	}
+}

@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="row">
-	<a href="/create">Create Content</a>
+	<h1>CREATE SHIT</h1>
 </div>
 @endsection

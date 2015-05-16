@@ -6,6 +6,7 @@ import bootstrap = require('bootstrap');
 class WelcomeView extends ViewBase {
 	protected NavLinks: JQuery;
 	protected SignInBtns: JQuery;
+	protected SignUpBtns: JQuery;
 	protected FeaturedCircles: JQuery;
 	protected ChartCarousel: JQuery;
 	protected Charts: Array<ChartUtil.ChartBase>;
@@ -15,6 +16,7 @@ class WelcomeView extends ViewBase {
 		super();
 		this.NavLinks = $(".landing-nav-link");
 		this.SignInBtns = $(".sign-in-btn");
+		this.SignUpBtns = $(".sign-up-btn");
 		this.FeaturedCircles =  $(".feature-circle");
 		this.ChartCarousel = $("#chartCarousel").carousel({interval:3000,pause:"false"});
 	}
@@ -31,9 +33,12 @@ class WelcomeView extends ViewBase {
 		$(this.ChartCarousel).on('slide.bs.carousel',this,this.slide);
 		$(this.ChartCarousel).on('slid.bs.carousel',this,(e) => { this.slid(e) });
 		$(this.SignInBtns).click(this.signIn);
+		$(this.SignUpBtns).click(this.signUp);
 	}
 	
 	private setup() {
+		$("#headerContent").animate({'opacity':'1.0'},800);
+		
 		this.Charts = new Array<ChartUtil.ChartBase>();
 		var lineChart = new ChartUtil.LineChart($("#lineChartCanvas")[0]);
 		var barChart = new ChartUtil.BarChart($("#barChartCanvas")[0]);
@@ -77,6 +82,10 @@ class WelcomeView extends ViewBase {
 	
 	private signIn(e: JQueryEventObject) {
 		window.location.href = "auth/login";
+	}
+	
+	private signUp(e: JQueryEventObject) {
+		window.location.href = "auth/register";
 	}
 	// Applies a flash animation to the target element
 	private flash(e: JQueryEventObject) {

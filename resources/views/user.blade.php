@@ -126,7 +126,7 @@
 		  			</tr>
 		  		</thead>
 		  		<tbody>
-		  			<tr class="small-font">
+		  			<tr>
 			  			<td>
 			  				<a href="#">Wow Such Post</a>
 			  			</td>
@@ -140,7 +140,7 @@
 							</a>
 			  			</td>
 		  			</tr>
-		  			<tr class="small-font">
+		  			<tr>
 			  			<td>
 			  				<a href="#">Very blog, wow</a>
 			  			</td>

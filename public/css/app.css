@@ -63,10 +63,34 @@
     transform: rotate(360deg);
   }
 }
+.flash {
+  -webkit-animation: flash 300ms linear 1;
+  -moz-animation: flash 300ms linear 1;
+  animation: flash 300ms linear 1;
+}
+.spin {
+  -webkit-animation: spin 500ms linear 1;
+  -moz-animation: spin 500ms linear 1;
+  animation: spin 500ms linear 1;
+}
 html,
 body {
   font-family: "Source Sans Pro";
   font-weight: 300;
+}
+.footer-container {
+  margin-top: 100px;
+  padding: 0px;
+}
+.cr-notice {
+  font-size: 0.8em;
+}
+footer {
+  text-align: center;
+  font-size: medium;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #eeeeee;
 }
 .bg-gray {
   background-color: gray;
@@ -77,15 +101,15 @@ body {
 .photo-center {
   margin: 0 auto;
 }
-.photo-center .tiny {
+.photo-center.tiny {
   max-width: 75px;
   max-height: 75px;
 }
-.photo-center .med {
+.photo-center.med {
   max-width: 250px;
   max-height: 250px;
 }
-.photo-center .big {
+.photo-center.big {
   max-width: 300px;
   max-height: 300px;
 }
@@ -160,64 +184,19 @@ section {
   padding-bottom: 2.5%;
   margin-bottom: 2.5%;
 }
-.snap-bottom {
-  margin-bottom: 0px;
+/* Keep landing view on the bottom, it overrides some files. */
+/*
+  Styles for the landing page.
+  Author: Ben Hansen
+*/
+canvas {
+  width: 100% !important;
+  max-width: 800px;
+  height: auto !important;
 }
-.snap-top {
-  margin-top: 0px;
-}
-.footer-container {
-  margin-top: 0px;
-  padding: 0px;
-}
-.cr-notice {
-  font-size: 0.8em;
-}
-footer {
-  text-align: center;
-  font-size: medium;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #eeeeee;
-}
-.jumbotron.home {
-  border-radius: 0;
-  background-color: none;
-  margin-bottom: 0;
-  background: url('../img/background.png') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  min-height: 80%;
-  width: 100%;
-  overflow: hidden;
-  color: white;
-}
-.jumbo-header {
-  margin-top: 10%;
-  margin-bottom: 10%;
-}
-.section-header {
-  font-size: 2em;
-  margin: 2%;
-  color: #555555;
-}
-div.icon-wrapper {
-  transform: rotate(45deg);
-  border-radius: 4px;
-  border: solid 1px white;
-  display: inline-block;
-  margin: 2em;
-}
-div.icon-wrapper span {
-  transform: rotate(-45deg);
-  width: 2em;
-  height: 2em;
-  line-height: 2em;
-}
-.btn-row {
-  text-align: center;
+section {
+  padding: 2em;
+  font-size: 1em;
 }
 .landing-nav-link {
   color: inherit;
@@ -242,17 +221,38 @@ div.icon-wrapper span {
 .icons-area {
   margin-top: 2%;
 }
-canvas {
-  width: 100% !important;
-  max-width: 800px;
-  height: auto !important;
+.snap-bottom {
+  margin-bottom: 0px;
 }
-section {
-  padding: 2em;
-  font-size: 1em;
+.snap-top {
+  margin-top: 0px;
+}
+.underline {
+  width: 50%;
+  height: 2px;
+}
+div#landingJumbo {
+  border-radius: 0;
+  background-color: none;
+  margin-bottom: 0;
+  background: url('../img/background.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 80%;
+  width: 100%;
+  overflow: hidden;
+  color: white;
+}
+div#landingJumbo .container #headerContent {
+  opacity: 0.0;
+}
+div#landingJumbo .container #headerContent .jumbo-header {
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 section#siteData {
-  /*background-color: #eeeeee;*/
   color: #555;
 }
 section#siteData .underline {
@@ -260,10 +260,6 @@ section#siteData .underline {
   margin: 0 auto;
   margin-bottom: 1em;
   width: 25%;
-}
-.underline {
-  width: 50%;
-  height: 2px;
 }
 section#siteOverview {
   color: #555;
@@ -293,6 +289,19 @@ section#siteDetails .text-content .underline {
   margin: 0 auto;
   margin-bottom: 1em;
   background-color: rgba(255, 255, 225, 0.2);
+}
+section#siteDetails .icons-area .icon-wrapper {
+  transform: rotate(45deg);
+  border-radius: 4px;
+  border: solid 1px white;
+  display: inline-block;
+  margin: 2em;
+}
+section#siteDetails .icons-area .icon-wrapper span {
+  transform: rotate(-45deg);
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
 }
 section#siteSection {
   background: url('..img/overlay1.png') url('../img/header.jpg');
@@ -336,34 +345,24 @@ section#siteExplore {
   background-size: cover;
   color: rgba(255, 255, 255, 0.75);
 }
-.flash {
-  -webkit-animation: flash 300ms linear 1;
-  -moz-animation: flash 300ms linear 1;
-  animation: flash 300ms linear 1;
-}
-.spin {
-  -webkit-animation: spin 500ms linear 1;
-  -moz-animation: spin 500ms linear 1;
-  animation: spin 500ms linear 1;
-}
 @media screen and (min-width: 768px) {
-  section {
-    font-size: 1.2em;
-  }
-  .carousel-inner > .item > img {
-    width: 100%;
-    height: 500px;
-  }
   #view-photo-carousel {
     width: 85%;
     height: 100%;
   }
-  .section-header {
-    font-size: 3em;
-    margin: 5%;
-  }
   #viewPhotoMod .modal-dialog {
     width: 850px;
+  }
+  .landing-nav-link {
+    color: inherit;
+    width: 75%;
+    height: 10%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    box-shadow: inset 0 0 0 1px white;
+  }
+  section {
+    font-size: 1.2em;
   }
   .landing-nav-link {
     color: inherit;
@@ -379,23 +378,23 @@ section#siteExplore {
   section#siteDetails .text-content .underline {
     margin-left: 0;
   }
-  section#siteOverview .text-content {
-    text-align: left;
-  }
-  section#siteOverview .text-content .underline {
-    margin-left: 0;
-  }
-  div.icon-wrapper {
+  section#siteDetails .icon-area .icon-wrapper {
     transform: rotate(45deg);
     border-radius: 4px;
     border: solid 1px white;
     display: inline-block;
     margin: 2.2em;
   }
-  div.icon-wrapper span {
+  section#siteDetails .icon-area .icon-wrapper span {
     transform: rotate(-45deg);
     height: 2em;
     width: 2em;
     line-height: 2em;
+  }
+  section#siteOverview .text-content {
+    text-align: left;
+  }
+  section#siteOverview .text-content .underline {
+    margin-left: 0;
   }
 }

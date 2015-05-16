@@ -24,8 +24,13 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
+<style>
+	body {
+	  padding-top: 75px;
+	}
+</style>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -34,7 +39,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">Information Network</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -59,13 +64,16 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('/js/app.min.js') }}"></script>
 	<div class="container-fluid">
 		@yield('content')
 	</div>
+	<!-- Scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="{{ asset('/js/dev/lib/jquery.min.js') }}"></script>
+	<script src="{{ asset('/js/dev/lib/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('/js/require.js') }}"></script>
+	<script src="{{ asset('/js/dev/config.js') }}"></script>
+	<script src="{{ asset('/js/app.min.js') }}"></script>
 	<div class="container-fluid footer-container">
 		<footer class="footer">
 		    <div class="container">

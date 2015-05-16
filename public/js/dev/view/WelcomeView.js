@@ -11,6 +11,7 @@ define(["require", "exports", 'jquery', 'ViewBase', 'utils/ChartUtil'], function
             _super.call(this);
             this.NavLinks = $(".landing-nav-link");
             this.SignInBtns = $(".sign-in-btn");
+            this.SignUpBtns = $(".sign-up-btn");
             this.FeaturedCircles = $(".feature-circle");
             this.ChartCarousel = $("#chartCarousel").carousel({ interval: 3000, pause: "false" });
         }
@@ -31,8 +32,10 @@ define(["require", "exports", 'jquery', 'ViewBase', 'utils/ChartUtil'], function
                 _this.slid(e);
             });
             $(this.SignInBtns).click(this.signIn);
+            $(this.SignUpBtns).click(this.signUp);
         };
         WelcomeView.prototype.setup = function () {
+            $("#headerContent").animate({ 'opacity': '1.0' }, 800);
             this.Charts = new Array();
             var lineChart = new ChartUtil.LineChart($("#lineChartCanvas")[0]);
             var barChart = new ChartUtil.BarChart($("#barChartCanvas")[0]);
@@ -70,6 +73,9 @@ define(["require", "exports", 'jquery', 'ViewBase', 'utils/ChartUtil'], function
         };
         WelcomeView.prototype.signIn = function (e) {
             window.location.href = "auth/login";
+        };
+        WelcomeView.prototype.signUp = function (e) {
+            window.location.href = "auth/register";
         };
         WelcomeView.prototype.flash = function (e) {
             $(e.target).toggleClass("flash");

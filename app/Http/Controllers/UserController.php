@@ -43,6 +43,7 @@ class UserController extends Controller {
 		$photos = Photo::where('uploader','=', $user)->get();
 		return Response::json(['photos' => $photos]);
 	}
+	
 
 	public function submitAbout(Request $request) {
 		$about = $request->input('data');

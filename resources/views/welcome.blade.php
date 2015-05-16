@@ -8,7 +8,7 @@
 	<body>
 	<div id="landingJumbo" class="jumbotron home">
 		<div class="container">
-			<div class="row text-center">
+			<div id="headerContent" class="row text-center">
 				<div class="col-xs-12 jumbo-header">
 					<h1>Information Network</h1>
 					<p>
@@ -23,7 +23,7 @@
 					</button>
 				</div>
 				<div class="col-xs-12 col-sm-4 btn-row">
-					<button class="btn btn-link landing-nav-link">
+					<button class="btn btn-link landing-nav-link sign-up-btn">
 						SIGN UP
 					</button>
 				</div>
@@ -213,7 +213,7 @@
 				</button>
 			</div>
 			<div class="col-xs-12 col-sm-4 btn-row">
-				<button class="btn btn-link landing-nav-link">
+				<button class="btn btn-link landing-nav-link sign-up-btn">
 					SIGN UP
 				</button>
 			</div>

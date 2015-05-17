@@ -1,0 +1,24 @@
+@grid-border: 1px dotted rgba(50,50,50,0.7);
+
+section#createTools {
+	text-align: center;
+}
+
+section#createCanvas {
+	min-height: 400px;
+	background-color: #eee;
+	border-radius: 10px;
+	
+	.row.canvas-grid {
+		border-top: @grid-border;
+		border-bottom: @grid-border;
+		
+		.col-xs-12,
+		.col-xs-6,
+		.col-xs-4,
+		.col-xs-3,
+		.col-xs-2 {
+			border-left: @grid-border;
+		}	
+	}
+}

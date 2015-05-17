@@ -11,8 +11,7 @@ class CreateView extends ViewBase implements EventRegister {
 	}
 	
 	private setup() {
-		// Make sure jq-ui works
-		$( "#date" ).datepicker();
+		
 	}
 }
 

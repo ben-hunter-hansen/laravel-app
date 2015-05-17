@@ -17,8 +17,6 @@ define(["require", "exports", 'jquery', 'ViewBase'], function (require, exports,
             });
         };
         CreateView.prototype.setup = function () {
-            $("#date").datepicker();
-            console.log(this.csrfToken);
         };
         return CreateView;
     })(ViewBase);

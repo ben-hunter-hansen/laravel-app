@@ -1,9 +1,9 @@
 import $ = require('jquery');
 import ViewBase = require('ViewBase');
 import ChartUtil = require('utils/ChartUtil');
-import bootstrap = require('bootstrap');
+import EventRegister = require('interfaces/EventRegister');
 
-class WelcomeView extends ViewBase {
+class WelcomeView extends ViewBase implements EventRegister {
 	protected NavLinks: JQuery;
 	protected SignInBtns: JQuery;
 	protected SignUpBtns: JQuery;

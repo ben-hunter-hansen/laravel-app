@@ -229,9 +229,6 @@
 		</div>
 	</section>
 
-	<script src="{{ asset('/js/chartjs/Chart.min.js') }}"></script>
-	<script src="{{ asset('/js/dev/lib/jquery.min.js') }}"></script>
-	<script src="{{ asset('/js/dev/lib/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/js/require.js') }}"></script>
 	<script src="{{ asset('/js/dev/config.js') }}"></script>
 	<script>

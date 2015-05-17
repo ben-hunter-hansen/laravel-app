@@ -8,7 +8,7 @@ class CreateView extends ViewBase implements EventRegister {
 	
 	public registerEvents() {
 		$(document).ready((e) => { this.setup() });
-	}1
+	}
 	
 	private setup() {
 		// Make sure jq-ui works

@@ -11,7 +11,10 @@ class CreateView extends ViewBase implements EventRegister {
 	}
 	
 	private setup() {
-		
+		$("#createToolbar").find("button").draggable({
+			cancel: "false",
+			helper: "clone"
+		});
 	}
 }
 

@@ -17,6 +17,10 @@ define(["require", "exports", 'jquery', 'ViewBase'], function (require, exports,
             });
         };
         CreateView.prototype.setup = function () {
+            $("#createToolbar").find("button").draggable({
+                cancel: "false",
+                helper: "clone"
+            });
         };
         return CreateView;
     })(ViewBase);

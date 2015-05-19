@@ -191,18 +191,21 @@ section#createCanvas {
   min-height: 400px;
   background-color: #eee;
   border-radius: 10px;
-  padding: 1em;
+  text-align: center;
 }
-section#createCanvas .row.canvas-grid {
+section#createCanvas .create-utils {
+  margin: 1em;
+}
+section#createCanvas .row.grid-row {
   border-top: 1px dotted rgba(50, 50, 50, 0.7);
   border-bottom: 1px dotted rgba(50, 50, 50, 0.7);
 }
-section#createCanvas .row.canvas-grid .col-xs-12,
-section#createCanvas .row.canvas-grid .col-xs-6,
-section#createCanvas .row.canvas-grid .col-xs-4,
-section#createCanvas .row.canvas-grid .col-xs-3,
-section#createCanvas .row.canvas-grid .col-xs-2 {
-  border-left: 1px dotted rgba(50, 50, 50, 0.7);
+section#createCanvas .row.grid-row .col-xs-12,
+section#createCanvas .row.grid-row .col-xs-6,
+section#createCanvas .row.grid-row .col-xs-4,
+section#createCanvas .row.grid-row .col-xs-3,
+section#createCanvas .row.grid-row .col-xs-2 {
+  border: 1px dotted rgba(50, 50, 50, 0.7);
 }
 /* Keep landing view on the bottom, it overrides some files. */
 /*

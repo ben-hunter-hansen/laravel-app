@@ -2,6 +2,7 @@ import $ = require('jquery');
 import ViewBase = require('ViewBase');
 import EventRegister = require('interfaces/EventRegister');
 class CreateView extends ViewBase implements EventRegister {
+	
 	constructor() {
 		super();
 	}
@@ -11,10 +12,7 @@ class CreateView extends ViewBase implements EventRegister {
 	}
 	
 	private setup() {
-		$("#createToolbar").find("button").draggable({
-			cancel: "false",
-			helper: "clone"
-		});
+		$(".grid-col").resizable({grid:50});
 	}
 }
 

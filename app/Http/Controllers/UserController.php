@@ -7,21 +7,9 @@ use Response;
 
 class UserController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
 
 	/**
 	 * Create a new controller instance.
-	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -37,6 +25,7 @@ class UserController extends Controller {
 	{
 		return view('user',['user' => User::findOrFail($id)]);
 	}
+
 
 	public function getPhotos(Request $request) {
 		$user = $request->input('id');
@@ -57,6 +46,7 @@ class UserController extends Controller {
 	public function addPhotos(Request $request) {
 		$photos = $request->input('photos');
 		$id = $request->input('id');
+
 		foreach ($photos as $src) {
 			$photo = new Photo;
 			$photo->uploader = $id;

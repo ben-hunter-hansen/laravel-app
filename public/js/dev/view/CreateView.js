@@ -17,7 +17,20 @@ define(["require", "exports", 'jquery', 'ViewBase'], function (require, exports,
             });
         };
         CreateView.prototype.setup = function () {
-            $(".grid-col").resizable({ grid: 50 });
+            $(".grid-col").resizable({
+                grid: 50,
+                containment: "parent"
+            });
+            $("#column-size-slider").slider({
+                value: 1,
+                min: 1,
+                max: 6,
+                step: 1,
+                slide: function (event, ui) {
+                    $("#nColumns").val(ui.value);
+                }
+            });
+            $("#nColumns").val("" + $("#column-size-slider").slider("value"));
         };
         return CreateView;
     })(ViewBase);

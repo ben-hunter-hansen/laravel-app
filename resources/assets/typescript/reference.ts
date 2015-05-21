@@ -1,5 +1,7 @@
 //grunt-start
 /// <reference path="config.ts" />
+/// <reference path="grid/Grid.ts" />
+/// <reference path="grid/Row.ts" />
 /// <reference path="interfaces/EventRegister.ts" />
 /// <reference path="lib/bootstrap.d.ts" />
 /// <reference path="lib/chart.d.ts" />

@@ -2,9 +2,10 @@
  * Created by ben on 5/20/15.
  */
 import $ = require('jquery');
+import Column = require('grid/Column');
 
 class Row {
-    private Columns: Array<JQuery>;
+    private Columns: Array<Column>;
     private MAX_COLUMNS = 4;
     private Element: JQuery;
     private ColumnTemplate: JQuery;
@@ -12,12 +13,18 @@ class Row {
     constructor(element: JQuery, colTemplate: JQuery) {
         this.Element = element;
         this.ColumnTemplate = colTemplate
-        this.Columns = new Array<JQuery>();
-        this.Columns.push(colTemplate);
+        this.Columns = new Array<Column>();
+
 
         var existingCols = $(this.Element).find(".grid-col");
         if(!existingCols.length) {
-            $(this.Element).append(this.createColumnFullWidth());
+            var col = new Column(this.createColumnFullWidth(),this.Element);
+            col.setResizable(50);
+            this.Columns.push(col);
+        }  else {
+            var col = new Column(this.ColumnTemplate);
+            col.setResizable(50);
+            this.Columns.push(col);
         }
     }
 
@@ -28,8 +35,8 @@ class Row {
     public addColumns(n: number) {
         if(n + this.Columns.length <= this.MAX_COLUMNS) {
             for(var i = 0; i < n; i++) {
-                var col = this.createColumnFromTemplate();
-                $(this.Element).append(col);
+                var col = new Column(this.createColumnFromTemplate(),this.Element);
+                col.setResizable(50);
                 this.Columns.push(col);
             }
         } else {
@@ -47,9 +54,9 @@ class Row {
     public adjustColumns(targetCount: number) {
         var targetClass = "col-xs-" + (12 / targetCount);
         this.Columns.forEach(column => {
-            $(column).removeClass().addClass(targetClass).addClass("grid-col").addClass("ui-resizable");
+            column.setWidth(targetClass);
         });
-        this.ColumnTemplate = $(this.Columns[0]).clone(); // Change the template to reflect updated column size
+        this.ColumnTemplate = this.Columns[0].copy(); // Change the template to reflect updated column size
 
         // For example, say we had 1 column, and the target count is 3 columns, so 3 - 1 = 2 column difference
         // Return this to the caller so they know how many columns to add/remove
@@ -67,7 +74,7 @@ class Row {
     public removeColumns(n: number) {
         for(var i = 0; i < n; i++) {
             var removedCol = this.Columns.pop();
-            $(removedCol).remove();
+            removedCol.remove();
         }
     }
 
@@ -79,6 +86,7 @@ class Row {
     public isSelected() {
         return $(this.Element).hasClass("selected");
     }
+
 
     /**
      * Gets all columns contained in the row
@@ -94,8 +102,8 @@ class Row {
      *
      * @returns the column
      */
-    private createColumnFullWidth() {
-        var col = $(this.ColumnTemplate).removeClass().addClass("col-xs-12").addClass("grid-col").addClass("ui-resizable");
+    private createColumnFullWidth(): JQuery {
+        var col = $(this.ColumnTemplate).removeClass().addClass("col-xs-12").addClass("grid-col");
         return col;
     }
 

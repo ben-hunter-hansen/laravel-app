@@ -33,11 +33,6 @@ class CreateView extends ViewBase implements EventRegister {
 	}
 
 	private setup() {
-
-		$(".grid-col").resizable({
-            grid:50,
-            containment: "parent"
-        });
         $(this.ColumnSlider).slider({
             value: 1,
             min: 1,
@@ -56,15 +51,24 @@ class CreateView extends ViewBase implements EventRegister {
             onClick: (e) => {
                 $(e.currentTarget).toggleClass("selected");
                 var rowElems = $(".grid-row");
+
                 $(rowElems).each((i) => {
                     $(rowElems[i]).hasClass("selected") &&
                     (rowElems[i] !== e.currentTarget) ?
                         $(rowElems[i]).removeClass("selected") : 0;
+
                 });
+
+                var thisRow = this.ContentGrid.getSelected();
+                if(thisRow) {
+                    $(this.ColumnSlider).slider("value",thisRow.getColumns().length);
+                    $(this.ColumnSliderLabel).val(""+thisRow.getColumns().length);
+                }
             }
         }
     }
     private adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {
+
         this.ContentGrid.getRows().forEach(row => {
             if(row.isSelected()) {
                 console.log('a row is selected');

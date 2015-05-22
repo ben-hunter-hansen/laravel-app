@@ -16,8 +16,8 @@ class Grid  {
     constructor(element: JQuery, rowTemplate: JQuery, colTemplate: JQuery,events: GridEvents) {
         this.Element = element;
         this.Rows = new Array<Row>();
-        this.RowTemplate = rowTemplate;
-        this.ColumnTemplate = colTemplate;
+        this.RowTemplate = $(rowTemplate).clone();
+        this.ColumnTemplate = $(colTemplate).clone();
         this.Events = events;
         this.attachEvents(rowTemplate);
         this.Rows.push(new Row(rowTemplate,colTemplate));
@@ -53,6 +53,16 @@ class Grid  {
      */
     public getRows() {
         return this.Rows;
+    }
+
+    public getSelected() {
+        var found: Row;
+        this.Rows.forEach(row => {
+            if(row.isSelected()) {
+                found = row;
+            }
+        });
+        return found;
     }
 
     /**

@@ -1,5 +1,6 @@
 //grunt-start
 /// <reference path="config.ts" />
+/// <reference path="grid/Column.ts" />
 /// <reference path="grid/Grid.ts" />
 /// <reference path="grid/GridEvents.ts" />
 /// <reference path="grid/Row.ts" />

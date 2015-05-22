@@ -30,10 +30,6 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
         };
         CreateView.prototype.setup = function () {
             var _this = this;
-            $(".grid-col").resizable({
-                grid: 50,
-                containment: "parent"
-            });
             $(this.ColumnSlider).slider({
                 value: 1,
                 min: 1,
@@ -47,6 +43,7 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
             $(this.ColumnSliderLabel).val("" + $(this.ColumnSlider).slider("value"));
         };
         CreateView.prototype.gridEvents = function () {
+            var _this = this;
             return {
                 onClick: function (e) {
                     $(e.currentTarget).toggleClass("selected");
@@ -54,6 +51,11 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
                     $(rowElems).each(function (i) {
                         $(rowElems[i]).hasClass("selected") && (rowElems[i] !== e.currentTarget) ? $(rowElems[i]).removeClass("selected") : 0;
                     });
+                    var thisRow = _this.ContentGrid.getSelected();
+                    if (thisRow) {
+                        $(_this.ColumnSlider).slider("value", thisRow.getColumns().length);
+                        $(_this.ColumnSliderLabel).val("" + thisRow.getColumns().length);
+                    }
                 }
             };
         };

@@ -11,10 +11,10 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
             this.ColumnSlider = $("#column-size-slider");
             this.ColumnSliderLabel = $("#nColumns");
             this.CreateUtils = $(".create-utils");
-            var gridElement = $(".grid");
-            var rowTemplate = $(".grid-row");
-            var columnTemplate = $(".grid-col");
-            this.ContentGrid = new Grid(gridElement, rowTemplate, columnTemplate);
+            var grid = $(".grid").first();
+            var rowTemplate = $(grid).find(".grid-row").first();
+            var colTemplate = $(rowTemplate).find(".grid-col").first();
+            this.ContentGrid = new Grid(grid, rowTemplate, colTemplate, this.gridEvents());
             _super.call(this);
         }
         CreateView.prototype.registerEvents = function () {
@@ -26,7 +26,6 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
                 e.stopPropagation();
                 e.preventDefault();
                 _this.ContentGrid.addRow();
-                console.log('adding row');
             });
         };
         CreateView.prototype.setup = function () {
@@ -47,9 +46,21 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
             });
             $(this.ColumnSliderLabel).val("" + $(this.ColumnSlider).slider("value"));
         };
+        CreateView.prototype.gridEvents = function () {
+            return {
+                onClick: function (e) {
+                    $(e.currentTarget).toggleClass("selected");
+                    var rowElems = $(".grid-row");
+                    $(rowElems).each(function (i) {
+                        $(rowElems[i]).hasClass("selected") && (rowElems[i] !== e.currentTarget) ? $(rowElems[i]).removeClass("selected") : 0;
+                    });
+                }
+            };
+        };
         CreateView.prototype.adjustColumns = function (event, ui) {
             this.ContentGrid.getRows().forEach(function (row) {
                 if (row.isSelected()) {
+                    console.log('a row is selected');
                     var adjMagnitude = row.adjustColumns(ui.value);
                     adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
                 }

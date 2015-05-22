@@ -207,6 +207,11 @@ section#createCanvas .row.grid-row .col-xs-2 {
   border: 1px dotted rgba(50, 50, 50, 0.7);
   text-align: center;
 }
+section#createCanvas .row.grid-row.selected {
+  -webkit-box-shadow: 0px 0px 30px 3px #1dccc3;
+  -moz-box-shadow: 0px 0px 30px 3px #1dccc3;
+  box-shadow: 0px 0px 30px 3px #1dccc3;
+}
 /* Keep landing view on the bottom, it overrides some files. */
 /*
   Styles for the landing page.

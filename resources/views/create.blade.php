@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="container grid">
-        <div class="container-fluid grid-row selected">
+        <div class="container-fluid grid-row">
             <div class="row user-content">
                 <div class="col-xs-12 grid-col">
                     <div class="btn-group create-utils" role="group" aria-label="...">

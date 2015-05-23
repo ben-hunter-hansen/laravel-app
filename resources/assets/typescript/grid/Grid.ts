@@ -29,6 +29,7 @@ class Grid  {
     public addRow() {
         var row = new Row(this.createTemplate(this.Config.rowTemplate));
         row.attachTo(this.Element);
+        row.click();
         this.Rows.push(row);
     }
 
@@ -61,8 +62,9 @@ class Grid  {
         $(parentElement).click(this.Config.events.onClick);
 
         var uContent = $(parentElement).find(".user-content").first().clone();
-        var colSlider = $(parentElement).find(".column-size-slider").first().clone();
-
+        var utils = $(parentElement).find(".utils").first().clone();
+        var colSlider = $(utils).find(".column-size-slider").first().clone();
+        $(utils).children().remove();
         $(parentElement).children().remove();
         $(el).remove();
 
@@ -80,8 +82,11 @@ class Grid  {
         var template:Template.GridRow = {
            element: parentElement,
             children: {
-                userContent: new Column(uContent),
+                userContent: {
+                    element: uContent
+                },
                 utils: {
+                    element: utils,
                     columnSlider: slider
                 }
             }

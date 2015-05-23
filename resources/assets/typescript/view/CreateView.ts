@@ -50,50 +50,10 @@ class CreateView extends ViewBase implements EventRegister {
             this.ContentGrid.addRow();
         });
 	}
-    /*
-	private setup() {
-        $(this.ColumnSlider).slider({
-            value: 1,
-            min: 1,
-            max: 4,
-            step: 1,
-            slide: (event,ui) => {
-                this.adjustColumns(event,ui)
-            },
-            animate: "fast"
-        });
-        $(this.ColumnSliderLabel).val(""+$(this.ColumnSlider).slider("value"));
-	}*/
-    /*
-    private gridEvents(): GridConfig {
-        return {
-            onClick: (e) => {
-                $(e.currentTarget).parent().toggleClass("selected");
-                var rowElems = $(".grid-row-container");
 
-                $(rowElems).each((i) => {
-                    $(rowElems[i]).hasClass("selected") &&
-                    (rowElems[i] !== e.currentTarget) ?
-                        $(rowElems[i]).removeClass("selected") : 0;
-
-                });
-
-                var thisRow = this.ContentGrid.getSelected();
-                if(thisRow) {
-                    $(this.ColumnSlider).slider("value",thisRow.getColumns().length);
-                    $(this.ColumnSliderLabel).val(""+thisRow.getColumns().length);
-                }
-            },
-            onColumnAdjustment: (ev,ui) => {
-                console.log('adjustment!');
-            }
-        }
-    }
-    */
     public adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {
         this.ContentGrid.getRows().forEach(row => {
             if(row.isSelected()) {
-
                 var adjMagnitude = row.adjustColumns(ui.value);
                 adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
             }

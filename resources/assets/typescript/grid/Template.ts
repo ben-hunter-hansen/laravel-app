@@ -8,8 +8,12 @@ module Template {
     export interface GridRow {
         element: JQuery;
         children: {
-            userContent: Column;
+            userContent: {
+                element: JQuery;
+                column?: Column;
+            }
             utils: {
+                element: JQuery;
                 columnSlider: Slider;
             }
         }

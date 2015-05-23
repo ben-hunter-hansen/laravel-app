@@ -10,7 +10,7 @@ class Column {
         this.Element = element;
     }
     public attachTo(parent: JQuery) {
-        $(parent).append(this.Element);
+        $(parent).prepend(this.Element);
     }
     public setWidth(className: string) {
         if($(this.Element).hasClass("ui-resizable")) {
@@ -32,7 +32,7 @@ class Column {
     }
 
     public copy() {
-        return $(this.Element).clone();
+        return new Column(this.Element.clone());
     }
 }
 

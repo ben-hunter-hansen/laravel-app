@@ -10,23 +10,26 @@ class Row  {
     private MAX_COLUMNS = 4;
     private Element: JQuery;
     private Template: Template.GridRow;
-    private Parent: JQuery;
 
     constructor(template: Template.GridRow) {
         this.Template = template;
+        var colContainer = this.Template.children.userContent.element.clone();
+        var utils = this.Template.children.utils.element.clone();
         var slider = this.Template.children.utils.columnSlider.element.clone();
         var slideConfig = this.Template.children.utils.columnSlider.config;
-        var columnTemplate = this.Template.children.userContent;
 
-        columnTemplate.attachTo(this.Template.element);
+        var templateCol = new Column(colContainer.children().first());
+        templateCol.attachTo(colContainer);
         this.Columns = new Array<Column>();
-        this.Columns.push(columnTemplate);
+        this.Columns.push(templateCol);
+        this.Template.children.userContent.column = templateCol;
 
         $(slider).slider(slideConfig);
-        $(this.Template.element).append(slider);
+        $(utils).append(slider);
 
+        $(this.Template.element).append(colContainer);
+        $(this.Template.element).append(utils);
         this.Element = this.Template.element;
-        this.Parent = this.Template.element.parent();
     }
 
     public attachTo(parent: JQuery) {
@@ -40,8 +43,8 @@ class Row  {
     public addColumns(n: number) {
         if(n + this.Columns.length <= this.MAX_COLUMNS) {
             for(var i = 0; i < n; i++) {
-                var col = new Column(this.Template.children.userContent.copy());
-                col.attachTo(this.Element);
+                var col = this.Template.children.userContent.column.copy();
+                col.attachTo(this.Element.find(".user-content").first());
                 this.Columns.push(col);
             }
         } else {
@@ -61,13 +64,12 @@ class Row  {
         this.Columns.forEach(column => {
             column.setWidth(targetClass);
         });
-        this.Template.children.userContent.setWidth(targetClass);
+        //this.Template.children.userContent.column.remove();
 
         // For example, say we had 1 column, and the target count is 3 columns, so 3 - 1 = 2 column difference
         // Return this to the caller so they know how many columns to add/remove
         // negative numbers indicate removal, positive numbers indicate addition.
         var adjustmentMagnitude = targetCount - this.Columns.length;
-        console.log(adjustmentMagnitude);
         return adjustmentMagnitude;
     }
 
@@ -85,6 +87,10 @@ class Row  {
 
     public isSelected() {
         return this.Element.hasClass("selected");
+    }
+
+    public click() {
+        $(this.Element).trigger("click");
     }
 }
 

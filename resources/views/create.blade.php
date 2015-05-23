@@ -30,39 +30,43 @@
                 <label for="nColumns">Number of columns:</label>
                 <input type="text" id="nColumns" readonly style="border:0; color:#f6931f; font-weight:bold;">
             </p>
-            <div id="column-size-slider"></div>
+            <!-- slider -->
         </div>
     </div>
     <div class="container grid">
-        <div class="row grid-row selected">
-            <div class="col-xs-12 grid-col">
-                <div class="btn-group create-utils" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-picture"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-facetime-video"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-cd"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="fa fa-file-pdf-o"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="fa fa-line-chart"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="fa fa-paint-brush"></span>
-                    </button>
+        <div class="container-fluid grid-row selected">
+            <div class="row user-content">
+                <div class="col-xs-12 grid-col">
+                    <div class="btn-group create-utils" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-facetime-video"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-cd"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-file-pdf-o"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-line-chart"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="fa fa-paint-brush"></span>
+                        </button>
+                    </div>
                 </div>
+            </div>
+            <div class="row utils">
+                <div class="column-size-slider"></div>
             </div>
         </div>
     </div>
-
 </section>
 <script>
 	window.onload = function() {

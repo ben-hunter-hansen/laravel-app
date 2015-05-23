@@ -8,66 +8,45 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid'], function (requ
     var CreateView = (function (_super) {
         __extends(CreateView, _super);
         function CreateView() {
+            var _this = this;
             this.ColumnSlider = $("#column-size-slider");
             this.ColumnSliderLabel = $("#nColumns");
-            this.CreateUtils = $(".create-utils");
             var grid = $(".grid").first();
             var rowTemplate = $(grid).find(".grid-row").first();
-            var colTemplate = $(rowTemplate).find(".grid-col").first();
-            this.ContentGrid = new Grid(grid, rowTemplate, colTemplate, this.gridEvents());
+            var gridConfig = {
+                element: grid,
+                rowTemplate: rowTemplate,
+                events: {
+                    onClick: function (e) {
+                        $(e.currentTarget).toggleClass("selected");
+                        var rowElems = $(".grid-row");
+                        $(rowElems).each(function (i) {
+                            $(rowElems[i]).hasClass("selected") && (rowElems[i] !== e.currentTarget) ? $(rowElems[i]).removeClass("selected") : 0;
+                        });
+                    },
+                    onColumnAdjustment: function (e, ui) {
+                        _this.adjustColumns(e, ui);
+                    }
+                }
+            };
+            this.ContentGrid = new Grid(gridConfig);
+            this.ContentGrid.addRow();
             _super.call(this);
         }
         CreateView.prototype.registerEvents = function () {
             var _this = this;
-            $(document).ready(function () {
-                _this.setup();
-            });
             $("#addRowBtn").click(function (e) {
-                e.stopPropagation();
                 e.preventDefault();
                 _this.ContentGrid.addRow();
             });
         };
-        CreateView.prototype.setup = function () {
-            var _this = this;
-            $(this.ColumnSlider).slider({
-                value: 1,
-                min: 1,
-                max: 4,
-                step: 1,
-                slide: function (event, ui) {
-                    _this.adjustColumns(event, ui);
-                },
-                animate: "fast"
-            });
-            $(this.ColumnSliderLabel).val("" + $(this.ColumnSlider).slider("value"));
-        };
-        CreateView.prototype.gridEvents = function () {
-            var _this = this;
-            return {
-                onClick: function (e) {
-                    $(e.currentTarget).toggleClass("selected");
-                    var rowElems = $(".grid-row");
-                    $(rowElems).each(function (i) {
-                        $(rowElems[i]).hasClass("selected") && (rowElems[i] !== e.currentTarget) ? $(rowElems[i]).removeClass("selected") : 0;
-                    });
-                    var thisRow = _this.ContentGrid.getSelected();
-                    if (thisRow) {
-                        $(_this.ColumnSlider).slider("value", thisRow.getColumns().length);
-                        $(_this.ColumnSliderLabel).val("" + thisRow.getColumns().length);
-                    }
-                }
-            };
-        };
         CreateView.prototype.adjustColumns = function (event, ui) {
             this.ContentGrid.getRows().forEach(function (row) {
                 if (row.isSelected()) {
-                    console.log('a row is selected');
                     var adjMagnitude = row.adjustColumns(ui.value);
                     adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
                 }
             });
-            $(this.ColumnSliderLabel).val("" + ui.value);
         };
         return CreateView;
     })(ViewBase);

@@ -2,7 +2,8 @@ import $ = require('jquery');
 import ViewBase = require('ViewBase');
 import EventRegister = require('interfaces/EventRegister');
 import Grid = require('grid/Grid');
-import GridEvents = require('../grid/GridEvents');
+import Row = require('grid/Row');
+import GridConfig = require('../grid/GridConfig');
 
 class CreateView extends ViewBase implements EventRegister {
     protected ContentGrid: Grid;
@@ -13,25 +14,43 @@ class CreateView extends ViewBase implements EventRegister {
 	constructor() {
         this.ColumnSlider = $("#column-size-slider");
         this.ColumnSliderLabel = $("#nColumns");
-        this.CreateUtils = $(".create-utils");
 
         var grid = $(".grid").first();
         var rowTemplate = $(grid).find(".grid-row").first();
-        var colTemplate = $(rowTemplate).find(".grid-col").first();
-        this.ContentGrid = new Grid(grid,rowTemplate,colTemplate,this.gridEvents());
+        var gridConfig: GridConfig = {
+            element: grid,
+            rowTemplate: rowTemplate,
+            events: {
+                onClick: (e) => {
+                    $(e.currentTarget).toggleClass("selected");
+                    var rowElems = $(".grid-row");
+
+                    $(rowElems).each((i) => {
+                        $(rowElems[i]).hasClass("selected") &&
+                        (rowElems[i] !== e.currentTarget) ?
+                            $(rowElems[i]).removeClass("selected") : 0;
+
+                    });
+                },
+                onColumnAdjustment: (e,ui) => { this.adjustColumns(e,ui); }
+            }
+        };
+
+        this.ContentGrid = new Grid(gridConfig);
+        this.ContentGrid.addRow();
 		super();
 	}
 	
 	public registerEvents() {
-		$(document).ready(() => {this.setup()});
+		//$(document).ready(() => {this.setup()});
 
         $("#addRowBtn").click((e) => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this.ContentGrid.addRow();
         });
 	}
-
+    /*
 	private setup() {
         $(this.ColumnSlider).slider({
             value: 1,
@@ -44,13 +63,13 @@ class CreateView extends ViewBase implements EventRegister {
             animate: "fast"
         });
         $(this.ColumnSliderLabel).val(""+$(this.ColumnSlider).slider("value"));
-	}
-
-    private gridEvents(): GridEvents {
+	}*/
+    /*
+    private gridEvents(): GridConfig {
         return {
             onClick: (e) => {
-                $(e.currentTarget).toggleClass("selected");
-                var rowElems = $(".grid-row");
+                $(e.currentTarget).parent().toggleClass("selected");
+                var rowElems = $(".grid-row-container");
 
                 $(rowElems).each((i) => {
                     $(rowElems[i]).hasClass("selected") &&
@@ -64,19 +83,21 @@ class CreateView extends ViewBase implements EventRegister {
                     $(this.ColumnSlider).slider("value",thisRow.getColumns().length);
                     $(this.ColumnSliderLabel).val(""+thisRow.getColumns().length);
                 }
+            },
+            onColumnAdjustment: (ev,ui) => {
+                console.log('adjustment!');
             }
         }
     }
-    private adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {
-
+    */
+    public adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {
         this.ContentGrid.getRows().forEach(row => {
             if(row.isSelected()) {
-                console.log('a row is selected');
+
                 var adjMagnitude = row.adjustColumns(ui.value);
                 adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
             }
         });
-        $(this.ColumnSliderLabel).val(""+ui.value);
 
     }
 }

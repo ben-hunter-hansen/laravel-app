@@ -3,46 +3,32 @@
  */
 import $ = require('jquery');
 import Row = require('grid/Row');
+import Column = require('grid/Column');
+import Template = require('grid/Template');
+import Slider = require('grid/Slider');
 import EventRegister = require('interfaces/EventRegister');
-import GridEvents = require('GridEvents');
+import GridConfig = require('grid/GridConfig');
 
 class Grid  {
     private Element: JQuery;
     private Rows: Array<Row>;
-    private RowTemplate: JQuery;
-    private ColumnTemplate: JQuery;
-    private Events: GridEvents;
+    private RowTemplate: Template.GridRow;
+    private Config: GridConfig;
 
-    constructor(element: JQuery, rowTemplate: JQuery, colTemplate: JQuery,events: GridEvents) {
-        this.Element = element;
+    constructor(config: GridConfig) {
+        this.Element = config.element;
         this.Rows = new Array<Row>();
-        this.RowTemplate = $(rowTemplate).clone();
-        this.ColumnTemplate = $(colTemplate).clone();
-        this.Events = events;
-        this.attachEvents(rowTemplate);
-        this.Rows.push(new Row(rowTemplate,colTemplate));
-
+        this.Config = config;
+        this.RowTemplate = this.createTemplate(this.Config.rowTemplate);
     }
 
-    /**
-     * Attaches event listeners to the template row,
-     * which will apply to all rows created from said template
-     *
-     * @param element the template row, or another element
-     */
-    private attachEvents(element: JQuery) {
-        $(element).click(this.Events.onClick);
-    }
 
     /**
      * Adds a new row to the grid
      */
     public addRow() {
-        var template = this.createTemplate();
-        this.attachEvents(template.row);
-
-        var row = new Row(template.row,template.col);
-        $(this.Element).append(template.row);
+        var row = new Row(this.createTemplate(this.Config.rowTemplate));
+        row.attachTo(this.Element);
         this.Rows.push(row);
     }
 
@@ -70,14 +56,37 @@ class Grid  {
      *
      * @returns {{row: JQuery, col: (T|JQuery)}} the template
      */
-    private createTemplate() {
-        var rowTemp = $(this.RowTemplate).clone().removeClass("selected");
-        var colTemp = $(this.ColumnTemplate).clone();
-        $(rowTemp).children().remove();
-        return {
-            row: rowTemp,
-            col: colTemp
-        }
+    private createTemplate(el: JQuery): Template.GridRow {
+        var parentElement = $(el).clone();
+        $(parentElement).click(this.Config.events.onClick);
+
+        var uContent = $(parentElement).find(".user-content").first().clone();
+        var colSlider = $(parentElement).find(".column-size-slider").first().clone();
+
+        $(parentElement).children().remove();
+        $(el).remove();
+
+        var slider:Slider = {
+            element: colSlider,
+            config: {
+                value: 1,
+                min: 1,
+                max: 4,
+                step: 1,
+                slide: this.Config.events.onColumnAdjustment
+            }
+        };
+
+        var template:Template.GridRow = {
+           element: parentElement,
+            children: {
+                userContent: new Column(uContent),
+                utils: {
+                    columnSlider: slider
+                }
+            }
+        };
+        return template;
     }
 }
 

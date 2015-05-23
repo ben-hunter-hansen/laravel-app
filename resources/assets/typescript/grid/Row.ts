@@ -2,30 +2,35 @@
  * Created by ben on 5/20/15.
  */
 import $ = require('jquery');
+import Template = require('grid/Template');
 import Column = require('grid/Column');
 
-class Row {
+class Row  {
     private Columns: Array<Column>;
     private MAX_COLUMNS = 4;
     private Element: JQuery;
-    private ColumnTemplate: JQuery;
+    private Template: Template.GridRow;
+    private Parent: JQuery;
 
-    constructor(element: JQuery, colTemplate: JQuery) {
-        this.Element = element;
-        this.ColumnTemplate = colTemplate
+    constructor(template: Template.GridRow) {
+        this.Template = template;
+        var slider = this.Template.children.utils.columnSlider.element.clone();
+        var slideConfig = this.Template.children.utils.columnSlider.config;
+        var columnTemplate = this.Template.children.userContent;
+
+        columnTemplate.attachTo(this.Template.element);
         this.Columns = new Array<Column>();
+        this.Columns.push(columnTemplate);
 
+        $(slider).slider(slideConfig);
+        $(this.Template.element).append(slider);
 
-        var existingCols = $(this.Element).find(".grid-col");
-        if(!existingCols.length) {
-            var col = new Column(this.createColumnFullWidth(),this.Element);
-            col.setResizable(50);
-            this.Columns.push(col);
-        }  else {
-            var col = new Column(this.ColumnTemplate);
-            col.setResizable(50);
-            this.Columns.push(col);
-        }
+        this.Element = this.Template.element;
+        this.Parent = this.Template.element.parent();
+    }
+
+    public attachTo(parent: JQuery) {
+        $(parent).append(this.Element);
     }
 
     /**
@@ -35,8 +40,8 @@ class Row {
     public addColumns(n: number) {
         if(n + this.Columns.length <= this.MAX_COLUMNS) {
             for(var i = 0; i < n; i++) {
-                var col = new Column(this.createColumnFromTemplate(),this.Element);
-                col.setResizable(50);
+                var col = new Column(this.Template.children.userContent.copy());
+                col.attachTo(this.Element);
                 this.Columns.push(col);
             }
         } else {
@@ -56,13 +61,13 @@ class Row {
         this.Columns.forEach(column => {
             column.setWidth(targetClass);
         });
-        this.ColumnTemplate = this.Columns[0].copy(); // Change the template to reflect updated column size
+        this.Template.children.userContent.setWidth(targetClass);
 
         // For example, say we had 1 column, and the target count is 3 columns, so 3 - 1 = 2 column difference
         // Return this to the caller so they know how many columns to add/remove
         // negative numbers indicate removal, positive numbers indicate addition.
         var adjustmentMagnitude = targetCount - this.Columns.length;
-
+        console.log(adjustmentMagnitude);
         return adjustmentMagnitude;
     }
 
@@ -78,42 +83,8 @@ class Row {
         }
     }
 
-    /**
-     * Checks if the row is currently selected
-     *
-     * @returns true if selected, else false.
-     */
     public isSelected() {
-        return $(this.Element).hasClass("selected");
-    }
-
-
-    /**
-     * Gets all columns contained in the row
-     *
-     * @returns {Array<JQuery>} the columns
-     */
-    public getColumns() {
-        return this.Columns;
-    }
-
-    /**
-     * Creates a new full width column
-     *
-     * @returns the column
-     */
-    private createColumnFullWidth(): JQuery {
-        var col = $(this.ColumnTemplate).removeClass().addClass("col-xs-12").addClass("grid-col");
-        return col;
-    }
-
-    /**
-     * Creates a column from the template
-     *
-     * @returns the column
-     */
-    private createColumnFromTemplate() {
-        return $(this.ColumnTemplate).clone();
+        return this.Element.hasClass("selected");
     }
 }
 

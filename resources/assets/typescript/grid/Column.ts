@@ -6,14 +6,12 @@ import $ = require('jquery');
 class Column {
     private Element: JQuery;
 
-    constructor(element: JQuery, parent?: JQuery) {
+    constructor(element: JQuery) {
         this.Element = element;
-
-        if(parent) {
-            $(parent).append(this.Element)
-        }
     }
-
+    public attachTo(parent: JQuery) {
+        $(parent).append(this.Element);
+    }
     public setWidth(className: string) {
         if($(this.Element).hasClass("ui-resizable")) {
             $(this.Element).removeClass().addClass(className).addClass("grid-col").addClass("ui-resizable");
@@ -34,8 +32,7 @@ class Column {
     }
 
     public copy() {
-        var el = $(this.Element).clone();
-        return el;
+        return $(this.Element).clone();
     }
 }
 

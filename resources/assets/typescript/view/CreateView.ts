@@ -34,16 +34,25 @@ class CreateView extends ViewBase implements EventRegister {
             e.preventDefault();
             this.ContentGrid.addRow();
         });
+        $(document).ready(() => {
+            // todo
+        })
 	}
 
     private gridItemClicked(e: JQueryEventObject) {
-        $(e.currentTarget).toggleClass("selected");
+        if(!$(e.currentTarget).hasClass("selected"))  {
+            $(e.currentTarget).addClass("selected");
+        }
+
+        $(e.currentTarget).find(".utils").fadeIn("slow");
         var rowElems = $(".grid-row");
         $(rowElems).each((i) => {
-            $(rowElems[i]).hasClass("selected") &&
-            (rowElems[i] !== e.currentTarget) ?
-                $(rowElems[i]).removeClass("selected") : 0;
-
+            var isSelected = $(rowElems[i]).hasClass("selected");
+            var notSelf = rowElems[i] !== e.currentTarget;
+            if(isSelected && notSelf) {
+                $(rowElems[i]).removeClass("selected");
+                $(rowElems[i]).find(".utils").hide();
+            }
         });
     }
     private adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {

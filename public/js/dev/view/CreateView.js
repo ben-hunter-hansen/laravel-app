@@ -35,12 +35,22 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
                 e.preventDefault();
                 _this.ContentGrid.addRow();
             });
+            $(document).ready(function () {
+            });
         };
         CreateView.prototype.gridItemClicked = function (e) {
-            $(e.currentTarget).toggleClass("selected");
+            if (!$(e.currentTarget).hasClass("selected")) {
+                $(e.currentTarget).addClass("selected");
+            }
+            $(e.currentTarget).find(".utils").fadeIn("slow");
             var rowElems = $(".grid-row");
             $(rowElems).each(function (i) {
-                $(rowElems[i]).hasClass("selected") && (rowElems[i] !== e.currentTarget) ? $(rowElems[i]).removeClass("selected") : 0;
+                var isSelected = $(rowElems[i]).hasClass("selected");
+                var notSelf = rowElems[i] !== e.currentTarget;
+                if (isSelected && notSelf) {
+                    $(rowElems[i]).removeClass("selected");
+                    $(rowElems[i]).find(".utils").hide();
+                }
             });
         };
         CreateView.prototype.adjustColumns = function (event, ui) {

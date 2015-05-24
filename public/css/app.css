@@ -199,6 +199,9 @@ section#createCanvas .container-fluid.grid-row .row.user-content .grid-col {
   border: 1px dotted rgba(50, 50, 50, 0.7);
   text-align: center;
 }
+section#createCanvas .container-fluid.grid-row .row.utils {
+  padding: 1em;
+}
 section#createCanvas .selected {
   -webkit-box-shadow: 0px 0px 30px 3px #1dccc3;
   -moz-box-shadow: 0px 0px 30px 3px #1dccc3;

@@ -63,7 +63,13 @@
                 </div>
             </div>
             <div class="row utils">
-                <div class="column-size-slider"></div>
+                <div class="col-xs-6">
+                    <p>Adjust column count</p>
+                    <div class="column-size-slider"></div>
+                </div>
+                <div class="col-xs-6">
+                    <p>nigga</p>
+                </div>
             </div>
         </div>
     </div>

@@ -5,43 +5,56 @@ import $ = require('jquery');
 import Row = require('grid/Row');
 import Column = require('grid/Column');
 import Template = require('grid/Template');
-import Slider = require('grid/Slider');
 import EventRegister = require('interfaces/EventRegister');
 import GridConfig = require('grid/GridConfig');
 
+/**
+ * A Grid is a configurable virtual DOM structure that
+ * simulates a grid using Bootstrap css classes.
+ *
+ * The grid is configured through a GridConfig object
+ * which contains:
+ *  1. Root element
+ *  2. A model that describes how the dynamically generated
+ *  child nodes should relate to each other.
+ *  3. Event handlers associated with the grid items
+ *  4. Configurations for various components, such as sliders.
+ */
 class Grid  {
     private Element: JQuery;
     private Rows: Array<Row>;
-    private RowTemplate: Template.GridRow;
     private Config: GridConfig;
 
     constructor(config: GridConfig) {
         this.Element = config.element;
         this.Rows = new Array<Row>();
         this.Config = config;
-        this.RowTemplate = this.createTemplate(this.Config.rowTemplate);
     }
-
 
     /**
      * Adds a new row to the grid
      */
     public addRow() {
-        var row = new Row(this.createTemplate(this.Config.rowTemplate));
+        var row = new Row(this.createTemplate());
+        row.applyTemplate();
         row.attachTo(this.Element);
-        row.click();
         this.Rows.push(row);
     }
 
     /**
      * Gets the rows
      *
-     * @returns {Array<Row>} the rows
+     * @returns {Array<Row>}
      */
     public getRows() {
         return this.Rows;
     }
 
+    /**
+     * Checks each row and returns a reference to the
+     * one that is currently selected
+     * @returns {Row}
+     */
     public getSelected() {
         var found: Row;
         this.Rows.forEach(row => {
@@ -53,41 +66,49 @@ class Grid  {
     }
 
     /**
-     * Builds up a usable template row
+     * Clears the grid of all elements matching
+     * the selectors described in the argument list
      *
-     * @returns {{row: JQuery, col: (T|JQuery)}} the template
+     * @param selectors an arbitrary list of css selectors.
      */
-    private createTemplate(el: JQuery): Template.GridRow {
-        var parentElement = $(el).clone();
-        $(parentElement).click(this.Config.events.onClick);
+    public clear(...selectors: string[]) {
+        selectors.forEach(selector => {
+            $(this.Element).find(selector).remove();
+        });
+    }
 
-        var uContent = $(parentElement).find(".user-content").first().clone();
-        var utils = $(parentElement).find(".utils").first().clone();
-        var colSlider = $(utils).find(".column-size-slider").first().clone();
-        $(utils).children().remove();
-        $(parentElement).children().remove();
-        $(el).remove();
+    /**
+     * Builds a template row out of the elements described
+     * in the grids configuration model.  The resulting
+     * template will have all additional components
+     * and event listeners attached to it.
+     *
+     * @returns {Template.GridRow}
+     */
+    private createTemplate(): Template.GridRow {
+        // Grab a clone of the row model and attach events to it.
+        var rowCopy = this.Config.model.row.clone();
+        $(rowCopy).click(this.Config.events.onClick);
 
-        var slider:Slider = {
-            element: colSlider,
-            config: {
-                value: 1,
-                min: 1,
-                max: 4,
-                step: 1,
-                slide: this.Config.events.onColumnAdjustment
-            }
-        };
+        // The rest of the model
+        var uContent = this.Config.model.content;
+        var utils = this.Config.model.utils;
 
+        // Clear out the child elements, so the resulting Row object
+        // will have a clean slate.
+        Template.DomUtils.removeChildren(rowCopy);
+
+        // Create usable components from our configuration, pass them into the new template
+        // and return.
         var template:Template.GridRow = {
-           element: parentElement,
+           element: rowCopy,
             children: {
                 userContent: {
                     element: uContent
                 },
                 utils: {
                     element: utils,
-                    columnSlider: slider
+                    slider: this.Config.components.slider
                 }
             }
         };

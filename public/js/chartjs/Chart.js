@@ -1995,7 +1995,7 @@
 					// If the responsive flag is set in the chart instance config
 					// Cascade the resize event down to the chart.
 					if (instance.options.responsive){
-						instance.resize(instance.render, true);
+						instance.resize(instance.applyTemplate, true);
 					}
 				});
 			}, 50);
@@ -2272,12 +2272,12 @@
 			},this);
 
 			this.scale.addXLabel(label);
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			this.update();
 		},
 		removeData : function(){
 			this.scale.removeXLabel();
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			helpers.each(this.datasets,function(dataset){
 				dataset.bars.shift();
 			},this);
@@ -2743,12 +2743,12 @@
 			},this);
 
 			this.scale.addXLabel(label);
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			this.update();
 		},
 		removeData : function(){
 			this.scale.removeXLabel();
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			helpers.each(this.datasets,function(dataset){
 				dataset.points.shift();
 			},this);

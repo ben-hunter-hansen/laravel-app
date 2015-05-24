@@ -4,7 +4,6 @@
 /// <reference path="grid/Grid.ts" />
 /// <reference path="grid/GridConfig.ts" />
 /// <reference path="grid/Row.ts" />
-/// <reference path="grid/Slider.ts" />
 /// <reference path="grid/Template.ts" />
 /// <reference path="interfaces/EventRegister.ts" />
 /// <reference path="lib/bootstrap.d.ts" />

@@ -5,6 +5,11 @@ import $ = require('jquery');
 import Template = require('grid/Template');
 import Column = require('grid/Column');
 
+/**
+ * A Row is a component of a Grid object.
+ * Its structure is modeled from a template that applies to all
+ * other rows contained in a grid.
+ */
 class Row  {
     private Columns: Array<Column>;
     private MAX_COLUMNS = 4;
@@ -13,27 +18,44 @@ class Row  {
 
     constructor(template: Template.GridRow) {
         this.Template = template;
-        var colContainer = this.Template.children.userContent.element.clone();
-        var utils = this.Template.children.utils.element.clone();
-        var slider = this.Template.children.utils.columnSlider.element.clone();
-        var slideConfig = this.Template.children.utils.columnSlider.config;
-
-        var templateCol = new Column(colContainer.children().first());
-        templateCol.attachTo(colContainer);
         this.Columns = new Array<Column>();
-        this.Columns.push(templateCol);
-        this.Template.children.userContent.column = templateCol;
 
-        $(slider).slider(slideConfig);
-        $(utils).append(slider);
-
-        $(this.Template.element).append(colContainer);
-        $(this.Template.element).append(utils);
-        this.Element = this.Template.element;
     }
 
+    /**
+     * Attaches this row to a parent node
+     *
+     * @param parent    parent node
+     */
     public attachTo(parent: JQuery) {
         $(parent).append(this.Element);
+    }
+
+    /**
+     * Transforms the elements, configs, and components
+     * from the template into a usable html structure which
+     * can be appended to the root node of the row.
+     *
+     */
+    public applyTemplate() {
+        // Create a virtual html structure from the template
+        var rowContents = Template.DomUtils.buildTree(this.Template.children);
+
+        // Attach the slider configuration
+        $(rowContents).find(".column-size-slider").first()
+            .slider(this.Template.children.utils.slider);
+
+        // Assign an arbitrary grid column as the template column.
+        var columnTemplate = new Column($(rowContents).find(".grid-col").first());
+        this.Template.children.userContent.column = columnTemplate;
+        this.Columns.push(columnTemplate);
+
+        // Apply the prepared DOM structure to the root element of the row
+        $(this.Template.element).append(rowContents);
+        this.Element = this.Template.element;
+
+        // Provide focus
+        this.click();
     }
 
     /**
@@ -64,8 +86,6 @@ class Row  {
         this.Columns.forEach(column => {
             column.setWidth(targetClass);
         });
-        //this.Template.children.userContent.column.remove();
-
         // For example, say we had 1 column, and the target count is 3 columns, so 3 - 1 = 2 column difference
         // Return this to the caller so they know how many columns to add/remove
         // negative numbers indicate removal, positive numbers indicate addition.
@@ -85,10 +105,17 @@ class Row  {
         }
     }
 
+    /**
+     * Checks if this row is selected
+     * @returns {boolean}
+     */
     public isSelected() {
         return this.Element.hasClass("selected");
     }
 
+    /**
+     * Triggers the rows click event
+     */
     public click() {
         $(this.Element).trigger("click");
     }

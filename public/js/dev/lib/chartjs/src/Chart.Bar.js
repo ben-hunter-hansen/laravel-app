@@ -250,12 +250,12 @@
 			},this);
 
 			this.scale.addXLabel(label);
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			this.update();
 		},
 		removeData : function(){
 			this.scale.removeXLabel();
-			//Then re-render the chart.
+			//Then re-applyTemplate the chart.
 			helpers.each(this.datasets,function(dataset){
 				dataset.bars.shift();
 			},this);

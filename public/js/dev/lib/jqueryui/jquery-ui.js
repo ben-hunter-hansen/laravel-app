@@ -8804,7 +8804,7 @@ $.extend(Datepicker.prototype, {
 			inst.input.focus();
 		}
 
-		// deffered render of the years select (to avoid flashes on Firefox)
+		// deffered applyTemplate of the years select (to avoid flashes on Firefox)
 		if( inst.yearshtml ){
 			origyearshtml = inst.yearshtml;
 			setTimeout(function(){
@@ -11274,7 +11274,7 @@ var selectmenu = $.widget( "ui.selectmenu", {
 			return;
 		}
 
-		// If this is the first time the menu is being opened, render the items
+		// If this is the first time the menu is being opened, applyTemplate the items
 		if ( !this.menuItems ) {
 			this._refreshMenu();
 		} else {

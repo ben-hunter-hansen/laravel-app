@@ -19,6 +19,32 @@ module Animation {
             scrollTop: $(target).offset().top - ($(target).height() / 2)
         });
     }
+
+    /**
+     * Sticky scrolls an element with the page.  Optionally,
+     * pass in the height of a container element to restrict
+     * scrolling behavior.
+     *
+     * @param element   The element to scroll
+     * @param containerHeight   (optional) height of container element
+     */
+    export function stickyScroll(element: JQuery, containerHeight = $(window).height()) {
+        var elemHeight = element.height(),
+            scrollPos = $(window).scrollTop();
+        var withinBounds = (containerHeight > scrollPos + elemHeight);
+        if(withinBounds) {
+            $(element).stop().animate({
+                "opacity":".2"
+            },"fast",() => {
+                $(element).stop().animate({
+                    marginTop: $(window).scrollTop()
+                },"fast",()=> {
+                    $(element).stop().animate({"opacity":"1"});
+
+                });
+            });
+        }
+    }
 }
 
 export = Animation;

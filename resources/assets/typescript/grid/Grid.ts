@@ -56,6 +56,13 @@ class Grid  {
     }
 
     /**
+     * Gets the current height of the grid
+     * @returns {number}
+     */
+    public getHeight(): number {
+        return $(this.Element).height();
+    }
+    /**
      * Gets the rows
      *
      * @returns {Array<Row>}

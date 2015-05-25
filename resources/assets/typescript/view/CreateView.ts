@@ -9,9 +9,12 @@ import Animation = require('utils/Animation');
 
 class CreateView extends ViewBase implements EventRegister {
     protected ContentGrid: Grid;
+    protected GridMenu: JQuery;
 
 	constructor() {
         var grid = $(".grid").first();
+        this.GridMenu = $(".grid-menu");
+
         var gridConfig: GridConfig = {
             element: grid,
             model: Template.Factory.Model(grid),
@@ -35,6 +38,10 @@ class CreateView extends ViewBase implements EventRegister {
             e.preventDefault();
             var newRow = this.ContentGrid.addRow();
             Animation.smoothScroll(newRow.getElement());
+        });
+
+        $(window).scroll((e) => {
+            Animation.stickyScroll(this.GridMenu,this.ContentGrid.getHeight());
         });
 
         $(document).ready(() => {

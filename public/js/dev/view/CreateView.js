@@ -10,6 +10,7 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
         function CreateView() {
             var _this = this;
             var grid = $(".grid").first();
+            this.GridMenu = $(".grid-menu");
             var gridConfig = {
                 element: grid,
                 model: Template.Factory.Model(grid),
@@ -38,6 +39,9 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
                 e.preventDefault();
                 var newRow = _this.ContentGrid.addRow();
                 Animation.smoothScroll(newRow.getElement());
+            });
+            $(window).scroll(function (e) {
+                Animation.stickyScroll(_this.GridMenu, _this.ContentGrid.getHeight());
             });
             $(document).ready(function () {
             });

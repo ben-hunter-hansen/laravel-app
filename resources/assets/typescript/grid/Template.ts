@@ -36,18 +36,18 @@ module Template {
     }
 
     /**
-     * Describes a Slider component
-     */
-    export interface Slider {
-        element: JQuery;
-        config: SlideConfig;
-    }
-
-    /**
-     * Describes a grid row
+     * Describes a grid row.
+     *
+     * NOTE: Each node that contains an element
+     * has semantic value and will be a parent
+     * of all elements below it in the object hierarchy.
+     *
      */
     export interface GridRow {
         element: JQuery;
+        events: {
+            onDelete: (e: JQueryEventObject) => void;
+        }
         children: {
             userContent: {
                 element: JQuery;

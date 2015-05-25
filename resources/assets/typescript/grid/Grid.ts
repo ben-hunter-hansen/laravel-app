@@ -32,13 +32,27 @@ class Grid  {
     }
 
     /**
-     * Adds a new row to the grid
+     * Adds a new row to the grid and returns a reference to it
+     * @returns {Row}
      */
     public addRow() {
         var row = new Row(this.createTemplate());
         row.applyTemplate();
         row.attachTo(this.Element);
         this.Rows.push(row);
+        return row;
+    }
+
+    /**
+     * Deletes a row from the grid
+     * @param toDelete  the row to delete
+     */
+    public deleteRow(toDelete: Row) {
+        var i = this.Rows.indexOf(toDelete);
+        if(i > -1) {
+            var removed = this.Rows.splice(i,1);
+            removed[0].remove();
+        }
     }
 
     /**
@@ -88,6 +102,7 @@ class Grid  {
     private createTemplate(): Template.GridRow {
         // Grab a clone of the row model and attach events to it.
         var rowCopy = this.Config.model.row.clone();
+
         $(rowCopy).click(this.Config.events.onClick);
 
         // The rest of the model
@@ -102,6 +117,9 @@ class Grid  {
         // and return.
         var template:Template.GridRow = {
            element: rowCopy,
+            events: {
+                onDelete: this.Config.events.onDelete
+            },
             children: {
                 userContent: {
                     element: uContent

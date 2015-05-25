@@ -5,7 +5,7 @@ import Grid = require('grid/Grid');
 import Row = require('grid/Row');
 import GridConfig = require('grid/GridConfig');
 import Template = require('grid/Template');
-
+import Animation = require('utils/Animation');
 
 class CreateView extends ViewBase implements EventRegister {
     protected ContentGrid: Grid;
@@ -16,7 +16,8 @@ class CreateView extends ViewBase implements EventRegister {
             element: grid,
             model: Template.Factory.Model(grid),
             events: {
-                onClick: (e) => { this.gridItemClicked(e); }
+                onClick: (e) => { this.gridItemClicked(e); },
+                onDelete: (e) => {this.removeGridRow(e); }
             },
             components: {
                 slider: Template.Factory.SlideConfig((e,ui) => { this.adjustColumns(e,ui); })
@@ -32,8 +33,10 @@ class CreateView extends ViewBase implements EventRegister {
 	public registerEvents() {
         $("#addRowBtn").click((e) => {
             e.preventDefault();
-            this.ContentGrid.addRow();
+            var newRow = this.ContentGrid.addRow();
+            Animation.smoothScroll(newRow.getElement());
         });
+
         $(document).ready(() => {
             // todo
         })
@@ -42,7 +45,12 @@ class CreateView extends ViewBase implements EventRegister {
     private gridItemClicked(e: JQueryEventObject) {
         if(!$(e.currentTarget).hasClass("selected"))  {
             $(e.currentTarget).addClass("selected");
+            $(e.currentTarget).find(".user-content").animate({
+                opacity: '1.0'
+            },"slow");
         }
+
+        Animation.smoothScroll($(e.currentTarget));
 
         $(e.currentTarget).find(".utils").fadeIn("slow");
         var rowElems = $(".grid-row");
@@ -52,6 +60,9 @@ class CreateView extends ViewBase implements EventRegister {
             if(isSelected && notSelf) {
                 $(rowElems[i]).removeClass("selected");
                 $(rowElems[i]).find(".utils").hide();
+                $(rowElems[i]).find(".user-content").animate({
+                    opacity: '0.5'
+                },"slow");
             }
         });
     }
@@ -60,7 +71,19 @@ class CreateView extends ViewBase implements EventRegister {
             if(row.isSelected()) {
                 var adjMagnitude = row.adjustColumns(ui.value);
                 adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
+                row.updateColumnsLabel(ui.value);
             }
+        });
+    }
+
+    private removeGridRow(e: JQueryEventObject) {
+        var prev: Row;
+        this.ContentGrid.getRows().forEach(row => {
+            if(row.isSelected()) {
+                this.ContentGrid.deleteRow(row);
+                prev ? prev.click() : 0;
+            }
+            prev = row;
         });
     }
 }

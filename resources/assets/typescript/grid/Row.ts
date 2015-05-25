@@ -45,6 +45,8 @@ class Row  {
         $(rowContents).find(".column-size-slider").first()
             .slider(this.Template.children.utils.slider);
 
+        $(rowContents).find(".delete-row-btn").first().click(this.Template.events.onDelete);
+
         // Assign an arbitrary grid column as the template column.
         var columnTemplate = new Column($(rowContents).find(".grid-col").first());
         this.Template.children.userContent.column = columnTemplate;
@@ -82,7 +84,7 @@ class Row  {
      * @returns {number}    Magnitude of adjustment
      */
     public adjustColumns(targetCount: number) {
-        var targetClass = "col-xs-" + (12 / targetCount);
+        var targetClass = "col-xs-12 col-sm-" + (12 / targetCount);
         this.Columns.forEach(column => {
             column.setWidth(targetClass);
         });
@@ -118,6 +120,35 @@ class Row  {
      */
     public click() {
         $(this.Element).trigger("click");
+    }
+
+    /**
+     * Gets the root element of the row
+     * @returns {JQuery}
+     */
+    public getElement() {
+        return this.Element;
+    }
+
+    /**
+     * Removes this row from the DOM
+     */
+    public remove() {
+        $(this.Element).remove();
+    }
+
+    /**
+     * Changes the value displayed in the column count
+     * label.
+     *
+     * @param value new value
+     */
+    public updateColumnsLabel(value: any) {
+        if(typeof value === "string") {
+            $(this.Element).find(".col-count-label").first().text(value);
+        } else if(typeof value === "number") {
+            $(this.Element).find(".col-count-label").first().text(value.toString());
+        }
     }
 }
 

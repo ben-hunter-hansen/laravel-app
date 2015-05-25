@@ -11,6 +11,7 @@
 /// <reference path="lib/jquery.d.ts" />
 /// <reference path="lib/jqueryui.d.ts" />
 /// <reference path="lib/require.d.ts" />
+/// <reference path="utils/Animation.ts" />
 /// <reference path="utils/ChartUtil.ts" />
 /// <reference path="view/CreateView.ts" />
 /// <reference path="view/ViewBase.ts" />

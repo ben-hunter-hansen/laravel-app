@@ -10,6 +10,7 @@ interface GridConfig {
     model: Template.GridModel;
     events: {
         onClick: (e: JQueryEventObject) => void;
+        onDelete: (e: JQueryEventObject) => void;
     }
     components: {
         slider: Template.SlideConfig;

@@ -15,8 +15,9 @@ module Animation {
      * @param from
      */
     export function smoothScroll(target: JQuery, from = $('html,body')) {
+        var magic = 3; // TODO: this whole function is garbage, fix it
         $(from).animate({
-            scrollTop: $(target).offset().top - ($(target).height() / 2)
+            scrollTop: $(target).offset().top - ($(target).height() / magic)
         });
     }
 

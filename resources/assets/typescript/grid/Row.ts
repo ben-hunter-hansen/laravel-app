@@ -4,19 +4,20 @@
 import $ = require('jquery');
 import Template = require('grid/Template');
 import Column = require('grid/Column');
-
+import Geometry = require('utils/Geometry');
 /**
  * A Row is a component of a Grid object.
  * Its structure is modeled from a template that applies to all
  * other rows contained in a grid.
  */
-class Row  {
+class Row {
     private Columns: Array<Column>;
     private MAX_COLUMNS = 4;
     private Element: JQuery;
     private Template: Template.GridRow;
 
     constructor(template: Template.GridRow) {
+
         this.Template = template;
         this.Columns = new Array<Column>();
 
@@ -149,6 +150,16 @@ class Row  {
         } else if(typeof value === "number") {
             $(this.Element).find(".col-count-label").first().text(value.toString());
         }
+    }
+
+    /**
+     * Returns a DOMRect composite object
+     * based on the current position of the row
+     *
+     * @returns {Geometry.Rect}
+     */
+    public getRect(): Geometry.Rect {
+        return Geometry.createRect(this.Element);
     }
 }
 

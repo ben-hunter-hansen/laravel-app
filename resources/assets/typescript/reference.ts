@@ -13,6 +13,7 @@
 /// <reference path="lib/require.d.ts" />
 /// <reference path="utils/Animation.ts" />
 /// <reference path="utils/ChartUtil.ts" />
+/// <reference path="utils/Geometry.ts" />
 /// <reference path="view/CreateView.ts" />
 /// <reference path="view/ViewBase.ts" />
 /// <reference path="view/WelcomeView.ts" />

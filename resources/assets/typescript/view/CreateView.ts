@@ -6,6 +6,7 @@ import Row = require('grid/Row');
 import GridConfig = require('grid/GridConfig');
 import Template = require('grid/Template');
 import Animation = require('utils/Animation');
+import Geometry = require('utils/Geometry');
 
 class CreateView extends ViewBase implements EventRegister {
     protected ContentGrid: Grid;
@@ -41,7 +42,18 @@ class CreateView extends ViewBase implements EventRegister {
         });
 
         $(window).scroll((e) => {
-            Animation.stickyScroll(this.GridMenu,this.ContentGrid.getHeight());
+            Animation.stickyScroll(this.GridMenu,this.ContentGrid.getHeight())
+                .done(() => {
+                    var menuRect = Geometry.createRect(this.GridMenu);
+                    this.ContentGrid.getRows().forEach(row => {
+                        if(menuRect.withinVerticalBoundsOf(row.getRect())) {
+                           row.click();
+                        }
+                    });
+                })
+                .fail((err) => {
+                    console.error(err)
+                });
         });
 
         $(document).ready(() => {
@@ -57,9 +69,8 @@ class CreateView extends ViewBase implements EventRegister {
             },"slow");
         }
 
-        Animation.smoothScroll($(e.currentTarget));
-
         $(e.currentTarget).find(".utils").fadeIn("slow");
+
         var rowElems = $(".grid-row");
         $(rowElems).each((i) => {
             var isSelected = $(rowElems[i]).hasClass("selected");

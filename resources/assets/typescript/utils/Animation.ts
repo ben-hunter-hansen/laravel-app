@@ -23,15 +23,19 @@ module Animation {
     /**
      * Sticky scrolls an element with the page.  Optionally,
      * pass in the height of a container element to restrict
-     * scrolling behavior.
+     * scrolling behavior.  Returns a promise to the caller
+     * that indicates all the animation effects have completed.
      *
      * @param element   The element to scroll
-     * @param containerHeight   (optional) height of container element
+     * @param containerHeight   height of container element (optional)
+     * @returns {JQueryPromise<T>}
      */
-    export function stickyScroll(element: JQuery, containerHeight = $(window).height()) {
+    export function stickyScroll(element: JQuery, containerHeight = $(window).height()): JQueryPromise<any> {
+        var deferred = $.Deferred();
         var elemHeight = element.height(),
             scrollPos = $(window).scrollTop();
         var withinBounds = (containerHeight > scrollPos + elemHeight);
+
         if(withinBounds) {
             $(element).stop().animate({
                 "opacity":".2"
@@ -39,11 +43,17 @@ module Animation {
                 $(element).stop().animate({
                     marginTop: $(window).scrollTop()
                 },"fast",()=> {
-                    $(element).stop().animate({"opacity":"1"});
-
+                    $(element).stop().animate({
+                        "opacity":"1"
+                    },"fast", () => {
+                        deferred.resolve("scroll complete")
+                    });
                 });
             });
+        } else {
+            deferred.reject("Animation.stickyScroll: Element is not within the bounds of its container");
         }
+        return deferred.promise();
     }
 }
 

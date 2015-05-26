@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template', 'utils/Animation'], function (require, exports, $, ViewBase, Grid, Template, Animation) {
+define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template', 'utils/Animation', 'utils/Geometry'], function (require, exports, $, ViewBase, Grid, Template, Animation, Geometry) {
     var CreateView = (function (_super) {
         __extends(CreateView, _super);
         function CreateView() {
@@ -41,7 +41,16 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
                 Animation.smoothScroll(newRow.getElement());
             });
             $(window).scroll(function (e) {
-                Animation.stickyScroll(_this.GridMenu, _this.ContentGrid.getHeight());
+                Animation.stickyScroll(_this.GridMenu, _this.ContentGrid.getHeight()).done(function () {
+                    var menuRect = Geometry.createRect(_this.GridMenu);
+                    _this.ContentGrid.getRows().forEach(function (row) {
+                        if (menuRect.withinVerticalBoundsOf(row.getRect())) {
+                            row.click();
+                        }
+                    });
+                }).fail(function (err) {
+                    console.error(err);
+                });
             });
             $(document).ready(function () {
             });
@@ -53,7 +62,6 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
                     opacity: '1.0'
                 }, "slow");
             }
-            Animation.smoothScroll($(e.currentTarget));
             $(e.currentTarget).find(".utils").fadeIn("slow");
             var rowElems = $(".grid-row");
             $(rowElems).each(function (i) {

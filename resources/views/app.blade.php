@@ -55,7 +55,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/user/profile/{{ Auth::user()->id }}">Profile</li>
+								<li><a href="/user/profile/{{ Auth::user()->id }}"></a>Profile</li>
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 							</ul>
 						</li>
@@ -91,7 +91,7 @@
 							Imaginary Press
 							1233 Pennsylvania Avenue
 							San Francisco, CA 94909<br>
-							<a href="mailto:ben@bensdevblog.com">ben@bensdevblog.com</a></span>
+							<a href="mailto:ben@bensdevblog.com">ben@bensdevblog.com</a>
 						</address>
 					</span>
 		    	</p>

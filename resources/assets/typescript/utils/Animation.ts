@@ -3,22 +3,25 @@
  */
 
 import $ = require('jquery');
-
 /**
  * The Animation module contains shorthand functions
  * that wrap useful jQuery animations
  */
 module Animation {
+
     /**
-     * Smoothly scroll to the target element
-     * @param target
-     * @param from
+     * Smooth scroll to the target element, taking into
+     * account an offset difference that can be supplied if
+     * the element expands or shrinks during the animation
+     *
+     * @param target    Target element
+     * @param scrollOffset  The offset difference
      */
-    export function smoothScroll(target: JQuery, from = $('html,body')) {
-        var magic = 3; // TODO: this whole function is garbage, fix it
-        $(from).animate({
-            scrollTop: $(target).offset().top - ($(target).height() / magic)
-        });
+    export function smoothScroll(target: JQuery, scrollOffset = 0) {
+        var targetOffset = target.offset();
+        $('html,body').animate({
+            scrollTop: targetOffset.top - scrollOffset
+        },250);
     }
 
     /**

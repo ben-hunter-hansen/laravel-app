@@ -9,6 +9,7 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
         __extends(CreateView, _super);
         function CreateView() {
             var _this = this;
+            this.MAGIC_SCROLL_OFFSET = 75 + 51;
             var grid = $(".grid").first();
             this.GridMenu = $(".grid-menu");
             var gridConfig = {
@@ -35,35 +36,47 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
         }
         CreateView.prototype.registerEvents = function () {
             var _this = this;
-            $("#addRowBtn").click(function (e) {
-                _this.addGridRow(e);
-            });
             $(window).scroll(function (e) {
                 _this.scrollGrid(e);
             });
+            $("#addRowBtn").click(function (e) {
+                _this.addGridRow(e);
+            });
             $("#gridScrollTopBtn").click(function (e) {
-                if (_this.ContentGrid.getRows()[0]) {
-                    Animation.smoothScroll(_this.ContentGrid.getRows()[0].getElement());
-                }
+                _this.gridScrollTop(e);
             });
             $("#gridScrollBottomBtn").click(function (e) {
-                var n = _this.ContentGrid.getRows().length;
-                if (n) {
-                    Animation.smoothScroll(_this.ContentGrid.getRows()[n - 1].getElement());
-                }
+                _this.gridScrollBottom(e);
             });
             $("#gridScrollUpBtn").click(function (e) {
-                var currentRow = _this.ContentGrid.getSelected(), index = _this.ContentGrid.getRows().indexOf(currentRow);
-                if (index > 0) {
-                    Animation.smoothScroll(_this.ContentGrid.getRows()[index - 1].getElement());
-                }
+                _this.gridScrollUp(e);
             });
             $("#gridScrollDownBtn").click(function (e) {
-                var currentRow = _this.ContentGrid.getSelected(), index = _this.ContentGrid.getRows().indexOf(currentRow);
-                if (index > -1 && index < _this.ContentGrid.getRows().length - 1) {
-                    Animation.smoothScroll(_this.ContentGrid.getRows()[index + 1].getElement());
-                }
+                _this.gridScrollDown(e);
             });
+        };
+        CreateView.prototype.gridScrollTop = function (e) {
+            if (this.ContentGrid.getRows()[0]) {
+                Animation.smoothScroll(this.ContentGrid.getRows()[0].getElement(), this.MAGIC_SCROLL_OFFSET);
+            }
+        };
+        CreateView.prototype.gridScrollBottom = function (e) {
+            var n = this.ContentGrid.getRows().length;
+            if (n) {
+                Animation.smoothScroll(this.ContentGrid.getRows()[n - 1].getElement(), this.MAGIC_SCROLL_OFFSET);
+            }
+        };
+        CreateView.prototype.gridScrollUp = function (e) {
+            var currentRow = this.ContentGrid.getSelected(), index = this.ContentGrid.getRows().indexOf(currentRow);
+            if (index > 0) {
+                Animation.smoothScroll(this.ContentGrid.getRows()[index - 1].getElement(), this.MAGIC_SCROLL_OFFSET);
+            }
+        };
+        CreateView.prototype.gridScrollDown = function (e) {
+            var currentRow = this.ContentGrid.getSelected(), index = this.ContentGrid.getRows().indexOf(currentRow);
+            if (index > -1 && index < this.ContentGrid.getRows().length - 1) {
+                Animation.smoothScroll(this.ContentGrid.getRows()[index + 1].getElement(), this.MAGIC_SCROLL_OFFSET);
+            }
         };
         CreateView.prototype.gridItemClicked = function (e) {
             if (!$(e.currentTarget).hasClass("selected")) {

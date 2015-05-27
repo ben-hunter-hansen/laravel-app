@@ -12,7 +12,16 @@ class CreateView extends ViewBase implements EventRegister {
     protected ContentGrid: Grid;
     protected GridMenu: JQuery;
 
+    //TODO: Figure out a reliable way of doing this
+    //When smooth scrolling to grid rows, we need to account
+    //for the fact that our 'body' element has 75px of padding-top,
+    //and each row has a display:none child div with a height of
+    //51px that appears when the row is scrolled into view.
+    private MAGIC_SCROLL_OFFSET: number;
+
 	constructor() {
+        this.MAGIC_SCROLL_OFFSET = 75 + 51;  // jesus christ
+
         var grid = $(".grid").first();
         this.GridMenu = $(".grid-menu");
 
@@ -42,17 +51,17 @@ class CreateView extends ViewBase implements EventRegister {
         $("#gridScrollUpBtn").click((e) => { this.gridScrollUp(e); });
         $("#gridScrollDownBtn").click((e) => { this.gridScrollDown(e); });
 	}
-    
+
     private gridScrollTop(e: JQueryEventObject) {
         if(this.ContentGrid.getRows()[0]) {
-            Animation.smoothScroll(this.ContentGrid.getRows()[0].getElement());
+            Animation.smoothScroll(this.ContentGrid.getRows()[0].getElement(),this.MAGIC_SCROLL_OFFSET);
         }
     }
 
     private gridScrollBottom(e: JQueryEventObject) {
         var n = this.ContentGrid.getRows().length;
         if(n) {
-            Animation.smoothScroll(this.ContentGrid.getRows()[n-1].getElement());
+            Animation.smoothScroll(this.ContentGrid.getRows()[n-1].getElement(),this.MAGIC_SCROLL_OFFSET);
         }
     }
 
@@ -60,7 +69,7 @@ class CreateView extends ViewBase implements EventRegister {
         var currentRow = this.ContentGrid.getSelected(),
             index = this.ContentGrid.getRows().indexOf(currentRow);
         if(index > 0) {
-            Animation.smoothScroll(this.ContentGrid.getRows()[index - 1].getElement());
+            Animation.smoothScroll(this.ContentGrid.getRows()[index - 1].getElement(),this.MAGIC_SCROLL_OFFSET);
         }
     }
 
@@ -68,7 +77,7 @@ class CreateView extends ViewBase implements EventRegister {
         var currentRow = this.ContentGrid.getSelected(),
             index = this.ContentGrid.getRows().indexOf(currentRow);
         if(index > -1 && index < this.ContentGrid.getRows().length-1) {
-            Animation.smoothScroll(this.ContentGrid.getRows()[index + 1].getElement());
+            Animation.smoothScroll(this.ContentGrid.getRows()[index + 1].getElement(),this.MAGIC_SCROLL_OFFSET);
         }
     }
 

@@ -10,17 +10,27 @@ import $ = require('jquery');
 module Animation {
 
     /**
-     * Smooth scroll to the target element, taking into
-     * account an offset difference that can be supplied if
-     * the element expands or shrinks during the animation
+     * Smooth scroll to the target element
      *
      * @param target    Target element
-     * @param scrollOffset  The offset difference
      */
-    export function smoothScroll(target: JQuery, scrollOffset = 0) {
-        var targetOffset = target.offset();
+    export function smoothScroll(target: JQuery) {
+        var targetOffset = target.offset(),
+            children = target.children(),
+            paddingDiff = parseInt($('body').css("padding-top")),
+            hiddenDiff = 0;
+
+        // Compute the difference for any display:none child elements
+        // on the target that may become visible
+        children.each((i) => {
+            if(!$(children[i]).is(":visible")) {
+                hiddenDiff += $(children[i]).show().height();
+                $(children[i]).hide();
+            }
+        });
+
         $('html,body').animate({
-            scrollTop: targetOffset.top - scrollOffset
+            scrollTop: targetOffset.top - (paddingDiff + hiddenDiff)
         },250);
     }
 

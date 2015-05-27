@@ -35,35 +35,42 @@ class CreateView extends ViewBase implements EventRegister {
 	}
 	
 	public registerEvents() {
-        $("#addRowBtn").click((e) => { this.addGridRow(e) });
         $(window).scroll((e) => { this.scrollGrid(e) });
-        $("#gridScrollTopBtn").click((e) => {
-            if(this.ContentGrid.getRows()[0]) {
-                Animation.smoothScroll(this.ContentGrid.getRows()[0].getElement());
-            }
-        });
-        $("#gridScrollBottomBtn").click((e) => {
-            var n = this.ContentGrid.getRows().length;
-            if(n) {
-                Animation.smoothScroll(this.ContentGrid.getRows()[n-1].getElement());
-            }
-        });
-
-        $("#gridScrollUpBtn").click((e) => {
-            var currentRow = this.ContentGrid.getSelected(),
-                index = this.ContentGrid.getRows().indexOf(currentRow);
-            if(index > 0) {
-                Animation.smoothScroll(this.ContentGrid.getRows()[index - 1].getElement());
-            }
-        });
-        $("#gridScrollDownBtn").click((e) => {
-            var currentRow = this.ContentGrid.getSelected(),
-                index = this.ContentGrid.getRows().indexOf(currentRow);
-            if(index > -1 && index < this.ContentGrid.getRows().length-1) {
-                Animation.smoothScroll(this.ContentGrid.getRows()[index + 1].getElement());
-            }
-        });
+        $("#addRowBtn").click((e) => { this.addGridRow(e) });
+        $("#gridScrollTopBtn").click((e) => { this.gridScrollTop(e); });
+        $("#gridScrollBottomBtn").click((e) => { this.gridScrollBottom(e); });
+        $("#gridScrollUpBtn").click((e) => { this.gridScrollUp(e); });
+        $("#gridScrollDownBtn").click((e) => { this.gridScrollDown(e); });
 	}
+    
+    private gridScrollTop(e: JQueryEventObject) {
+        if(this.ContentGrid.getRows()[0]) {
+            Animation.smoothScroll(this.ContentGrid.getRows()[0].getElement());
+        }
+    }
+
+    private gridScrollBottom(e: JQueryEventObject) {
+        var n = this.ContentGrid.getRows().length;
+        if(n) {
+            Animation.smoothScroll(this.ContentGrid.getRows()[n-1].getElement());
+        }
+    }
+
+    private gridScrollUp(e: JQueryEventObject) {
+        var currentRow = this.ContentGrid.getSelected(),
+            index = this.ContentGrid.getRows().indexOf(currentRow);
+        if(index > 0) {
+            Animation.smoothScroll(this.ContentGrid.getRows()[index - 1].getElement());
+        }
+    }
+
+    private gridScrollDown(e: JQueryEventObject) {
+        var currentRow = this.ContentGrid.getSelected(),
+            index = this.ContentGrid.getRows().indexOf(currentRow);
+        if(index > -1 && index < this.ContentGrid.getRows().length-1) {
+            Animation.smoothScroll(this.ContentGrid.getRows()[index + 1].getElement());
+        }
+    }
 
     private gridItemClicked(e: JQueryEventObject) {
         if(!$(e.currentTarget).hasClass("selected"))  {

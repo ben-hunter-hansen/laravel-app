@@ -9,7 +9,7 @@
                     <i class="fa fa-plus-circle fa-2x"></i>
                 </button>
                 <div style="height: 2em"></div>
-                <button type="button" class="btn btn-default">
+                <button id="deleteRowBtn" type="button" class="btn btn-default">
                     <i class="fa fa-ban fa-2x"></i>
                 </button>
                 <div style="height: 2em"></div>
@@ -28,10 +28,10 @@
                     </div>
                 </div>
                 <div class="row utils">
-                    <div class="col-xs-6 col-sm-10">
+                    <div class="col-xs-6 col-sm-8 col-md-10">
                         <div class="column-size-slider"></div>
                     </div>
-                    <div class="col-xs-6 col-sm-2 text-right">
+                    <div class="col-xs-6 col-sm-4 col-md-2 text-right">
                         <p><span class="col-count-label">1</span> Columns</p>
 
                         <!--

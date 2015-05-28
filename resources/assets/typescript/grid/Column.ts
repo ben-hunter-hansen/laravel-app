@@ -36,6 +36,25 @@ class Column {
         }
     }
 
+    public setDisplay(displayVal: string) {
+        $(this.Element).css("display",displayVal);
+    }
+
+    public getVisible() {
+        return $(this.Element).is(":visible");
+    }
+
+    public fadeIn(speed?: string) {
+        $(this.Element).fadeIn(speed);
+    }
+
+    public fadeOut(speed: string, callback?: Function) {
+        $(this.Element).fadeOut(speed,callback);
+    }
+
+    public getElement() {
+        return this.Element;
+    }
     /**
      * @NotImplemented
      * @param grid
@@ -57,6 +76,7 @@ class Column {
     public remove() {
         $(this.Element).remove();
     }
+
 
     /**
      * Creates a copy of this Column

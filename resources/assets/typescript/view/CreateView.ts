@@ -3,6 +3,7 @@ import ViewBase = require('ViewBase');
 import EventRegister = require('interfaces/EventRegister');
 import Grid = require('grid/Grid');
 import Row = require('grid/Row');
+import Column = require('grid/Column');
 import GridConfig = require('grid/GridConfig');
 import Template = require('grid/Template');
 import Animation = require('utils/Animation');
@@ -39,6 +40,7 @@ class CreateView extends ViewBase implements EventRegister {
 	public registerEvents() {
         $(window).scroll((e) => { this.scrollGrid(e) });
         $("#addRowBtn").click((e) => { this.addGridRow(e) });
+        $("#deleteRowBtn").click((e) => { this.removeGridRow(e);});
         $("#gridScrollTopBtn").click((e) => { this.gridScrollTop(e); });
         $("#gridScrollBottomBtn").click((e) => { this.gridScrollBottom(e); });
         $("#gridScrollUpBtn").click((e) => { this.gridScrollUp(e); });
@@ -113,13 +115,18 @@ class CreateView extends ViewBase implements EventRegister {
             });
     }
     private adjustColumns(event: JQueryUI.SliderEvent, ui: JQueryUI.SliderUIParams) {
-        this.ContentGrid.getRows().forEach(row => {
-            if(row.isSelected()) {
-                var adjMagnitude = row.adjustColumns(ui.value);
-                adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
-                row.updateColumnsLabel(ui.value);
-            }
-        });
+        var row = this.ContentGrid.getSelected();
+        var adjMagnitude = row.adjustColumns(ui.value);
+        if(adjMagnitude > 0) {
+            row.addColumns(adjMagnitude).then((cols) => {
+               cols.map((col: Column) => {
+                   col.fadeIn("slow");
+               });
+            });
+        } else if(adjMagnitude) {
+            row.removeColumns(Math.abs(adjMagnitude));
+        }
+        row.updateColumnsLabel(ui.value);
     }
 
     private addGridRow(e: JQueryEventObject) {
@@ -129,14 +136,17 @@ class CreateView extends ViewBase implements EventRegister {
     }
 
     private removeGridRow(e: JQueryEventObject) {
-        var prev: Row;
-        this.ContentGrid.getRows().forEach(row => {
-            if(row.isSelected()) {
-                this.ContentGrid.deleteRow(row);
-                prev ? prev.click() : 0;
-            }
-            prev = row;
-        });
+        var currentRow = this.ContentGrid.getSelected(),
+            currentIndex = this.ContentGrid.getRows().indexOf(currentRow);
+
+        this.ContentGrid.deleteRow(currentRow);
+
+        if (currentIndex > 0) {
+            var prevRow = this.ContentGrid.getRow(currentIndex - 1);
+            Animation.smoothScroll(prevRow.getElement());
+        } else if (!currentIndex) {
+            this.ContentGrid.getRow(currentIndex).click();
+        }
     }
 }
 

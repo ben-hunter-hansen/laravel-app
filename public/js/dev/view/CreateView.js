@@ -41,6 +41,9 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
             $("#addRowBtn").click(function (e) {
                 _this.addGridRow(e);
             });
+            $("#deleteRowBtn").click(function (e) {
+                _this.removeGridRow(e);
+            });
             $("#gridScrollTopBtn").click(function (e) {
                 _this.gridScrollTop(e);
             });
@@ -112,13 +115,19 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
             });
         };
         CreateView.prototype.adjustColumns = function (event, ui) {
-            this.ContentGrid.getRows().forEach(function (row) {
-                if (row.isSelected()) {
-                    var adjMagnitude = row.adjustColumns(ui.value);
-                    adjMagnitude > 0 ? row.addColumns(adjMagnitude) : row.removeColumns(Math.abs(adjMagnitude));
-                    row.updateColumnsLabel(ui.value);
-                }
-            });
+            var row = this.ContentGrid.getSelected();
+            var adjMagnitude = row.adjustColumns(ui.value);
+            if (adjMagnitude > 0) {
+                row.addColumns(adjMagnitude).then(function (cols) {
+                    cols.map(function (col) {
+                        col.fadeIn("slow");
+                    });
+                });
+            }
+            else if (adjMagnitude) {
+                row.removeColumns(Math.abs(adjMagnitude));
+            }
+            row.updateColumnsLabel(ui.value);
         };
         CreateView.prototype.addGridRow = function (e) {
             e.preventDefault();
@@ -126,15 +135,15 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
             Animation.smoothScroll(newRow.getElement());
         };
         CreateView.prototype.removeGridRow = function (e) {
-            var _this = this;
-            var prev;
-            this.ContentGrid.getRows().forEach(function (row) {
-                if (row.isSelected()) {
-                    _this.ContentGrid.deleteRow(row);
-                    prev ? prev.click() : 0;
-                }
-                prev = row;
-            });
+            var currentRow = this.ContentGrid.getSelected(), currentIndex = this.ContentGrid.getRows().indexOf(currentRow);
+            this.ContentGrid.deleteRow(currentRow);
+            if (currentIndex > 0) {
+                var prevRow = this.ContentGrid.getRow(currentIndex - 1);
+                Animation.smoothScroll(prevRow.getElement());
+            }
+            else if (!currentIndex) {
+                this.ContentGrid.getRow(currentIndex).click();
+            }
         };
         return CreateView;
     })(ViewBase);

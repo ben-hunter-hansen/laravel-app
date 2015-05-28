@@ -65,15 +65,20 @@ class Row {
      * Adds an arbitrary number of columns to the row
      * @param n the number of columns to add
      */
-    public addColumns(n: number) {
+    public addColumns(n: number): JQueryPromise<any> {
+        var deferred = $.Deferred();
         if(n + this.Columns.length <= this.MAX_COLUMNS) {
             for(var i = 0; i < n; i++) {
                 var col = this.Template.children.userContent.column.copy();
+                col.setDisplay("none");
                 col.attachTo(this.Element.find(".user-content").first());
                 this.Columns.push(col);
             }
+            return deferred.resolve(this.Columns.filter((col) => {
+                return !col.getVisible();
+            }));
         } else {
-            console.warn("unable to add any more columns!");
+            return deferred.reject("unable to add any more columns!");
         }
     }
 
@@ -103,8 +108,8 @@ class Row {
      */
     public removeColumns(n: number) {
         for(var i = 0; i < n; i++) {
-            var removedCol = this.Columns.pop();
-            removedCol.remove();
+            this.Columns.pop().remove();
+            this.Columns[i].getElement().hide().fadeIn("slow")
         }
     }
 

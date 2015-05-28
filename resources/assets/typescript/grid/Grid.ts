@@ -72,18 +72,23 @@ class Grid  {
     }
 
     /**
+     * Gets a row at the specified index
+     *
+     * @param index
+     * @returns {Row}
+     */
+    public getRow(index: number) {
+        return this.Rows[index];
+    }
+    /**
      * Checks each row and returns a reference to the
      * one that is currently selected
      * @returns {Row}
      */
     public getSelected() {
-        var found: Row;
-        this.Rows.forEach(row => {
-            if(row.isSelected()) {
-                found = row;
-            }
-        });
-        return found;
+        return this.Rows.filter((row: Row) => {
+            return row.isSelected();
+        }).shift();
     }
 
     /**

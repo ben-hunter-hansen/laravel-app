@@ -125,7 +125,11 @@ define(["require", "exports", 'jquery', 'ViewBase', 'grid/Grid', 'grid/Template'
                 });
             }
             else if (adjMagnitude) {
-                row.removeColumns(Math.abs(adjMagnitude));
+                row.removeColumns(Math.abs(adjMagnitude)).then(function (cols) {
+                    cols.map(function (col) {
+                        col.fadeIn("slow");
+                    });
+                });
             }
             row.updateColumnsLabel(ui.value);
         };

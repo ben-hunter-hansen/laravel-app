@@ -44,8 +44,8 @@ class Column {
         return $(this.Element).is(":visible");
     }
 
-    public fadeIn(speed?: string) {
-        $(this.Element).fadeIn(speed);
+    public fadeIn(speed: string, callback?: Function) {
+        $(this.Element).fadeIn(speed,callback);
     }
 
     public fadeOut(speed: string, callback?: Function) {

@@ -107,37 +107,10 @@ class Row {
      *
      * @param n number of columns to remove
      */
-    /*
     public removeColumns(n: number) {
-        console.log(n);
-        if(n === 0) {
-            console.log('exiting removeCol, n cols = ', this.Columns.length);
-            return;
-        }
-        // * columns length = 4
-        // ** columns length = 3
-        // *** columns length = 2
-        // * n = 3
-        // ** n = 2
-        // *** n = 1
-        this.Columns.shift().remove(); // columns length = 3, 2, 1
-        // n - 1 = 2, 1, 0
-        this.Columns[n-1].getElement().hide().fadeIn("slow", () => {
-            this.removeColumns(n-1);
-        });
-    }*/
-    public removeColumns(n: number): JQueryPromise<any> {
-        var d = $.Deferred();
         for(var i = 0; i < n; i++) {
-            var removed = this.Columns.pop();
-            removed.getElement().remove();
+            this.Columns.pop().remove();
         }
-        this.Columns.map((col) => {
-            col.fadeOut("fast");
-        }).reverse();
-
-        d.resolve(this.Columns);
-        return d.promise();
     }
 
     /**

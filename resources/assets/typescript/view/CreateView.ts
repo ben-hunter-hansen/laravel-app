@@ -124,11 +124,7 @@ class CreateView extends ViewBase implements EventRegister {
                });
             });
         } else if(adjMagnitude) {
-            row.removeColumns(Math.abs(adjMagnitude)).then((cols) => {
-                cols.map((col: Column) => {
-                   col.fadeIn("slow");
-                });
-            });
+            row.removeColumns(Math.abs(adjMagnitude));
         }
         row.updateColumnsLabel(ui.value);
     }
